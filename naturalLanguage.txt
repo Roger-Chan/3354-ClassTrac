@@ -1,5 +1,7 @@
-Logout: allow the user to access the system by entering their netID and password
-Login:  allow the user to exit the system by clicking the logout/exit button
-Vallidate: if the user preforms a task that requires information from the database (ie login/logout) the system will validate that the                 user can preform the task they are trying to do, and make sure that the correct steps are being taken so that no errors come up.
+Student: a user who is only allowed to take attendence
+System: the device that manages the functions, database, and users
+Login: allow the user to access the system by entering their netID and password
+Logout:  allow the user to exit the system by clicking the logout/exit button
+Validate: if the user preforms a task that requires information from the database (ie login/logout) the system will validate that the                 user can preform the task they are trying to do, and make sure that the correct steps are being taken so that no errors come up.
 View list of Attendence: the user will click a button so that the attendence list will pop up
 Take attendence: the user will click a button next to their name so that they can be counted as present
