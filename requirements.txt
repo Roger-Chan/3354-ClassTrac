@@ -16,7 +16,12 @@ Functional Requirements:
   5) View list of attendance:
     5.1 - the student will be able to see the list of students in the class/ on the attendance list
     5.2 - the teacher will be able to see how many students have already been accounted for and who exactly is not at the class yet
-
+  6) View classes: 
+    6.1 Upon arrival of page by instructor, display the active classes of said instructor.
+  7) View system: 
+    7.1 Upon request from system admin, display all current students, teachers, system administrators, state of classes (running or errors)
+  8)Manipulate system data:
+    8.1 Allow admin to modify any piece of information needed to fix errors, including any changes to student, instructor, or system admin and adding or deleting any of the previous profiles or other data.
 
 Use Case Diagram:
 
