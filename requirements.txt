@@ -22,6 +22,22 @@ Functional Requirements:
     7.1 Upon request from system admin, display all current students, teachers, system administrators, state of classes (running or errors)
   8)Manipulate system data:
     8.1 Allow admin to modify any piece of information needed to fix errors, including any changes to student, instructor, or system admin and adding or deleting any of the previous profiles or other data.
+  9) Generate attendance session
+    9.1 The system shall allow the professor to create an attendance session.
+    9.2 The system shall let the professor assign cut-off time for attendance.
+    9.3 The system will verify that the cut off time is acceptable. 
+    9.4 The system will display the session on the professor's dashboard.
+  10) Generate Attendance List 
+    10.1 The system will allow the professor to add students.
+    10.2 The system will allow the professor to drop students.
+    10.3 The system will allow the professor to modify the time of the class.
+    10.4 The system will allow the professor to be able to change the status of student attedance.
+  11) Generate Attendance Report
+    11.1 The system will allow the professor to generate an attendance report in the form of an excel file.
+    11.2 The system will email the professor the generated report to their email. 
+    11.3 The report will consist of student names, attendance status, and time that they attend
+
+
 
 Use Case Diagram:
 
