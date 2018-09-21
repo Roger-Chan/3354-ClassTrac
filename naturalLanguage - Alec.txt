@@ -5,3 +5,6 @@ Logout:  allow the user to exit the system by clicking the logout/exit button
 Validate: if the user preforms a task that requires information from the database (ie login/logout) the system will validate that the                 user can preform the task they are trying to do, and make sure that the correct steps are being taken so that no errors come up.
 View list of Attendence: the user will click a button so that the attendence list will pop up
 Take attendence: the user will click a button next to their name so that they can be counted as present
+View classes: Upon arrival of page by instructor, display the active classes of said instructor. 
+View system: Upon request from system admin, display all current students, teachers, system administrators, state of classes (running or errors)
+Manipulate system data (system admin function): Allow admin to modify any piece of information needed to fix errors, including any changes to student, instructor, or system admin and adding or deleting any of the previous profiles or other data.
