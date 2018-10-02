@@ -1,0 +1,44 @@
+Definitions, Acronyms, and Abbreviation:
+
+
+Functional Requirements:
+  1) Login:
+    1.1 - the user will be enter their username and password to enter the system
+  2) logout:
+    2.1 - the user will be exited from the system
+  3) Validate:
+    3.1 - when a user tries to log in, varify that the user is in the system
+    3.2 - if the user tries to edit the class attendence time, verify that the user has the right privlages
+    3.3 - if the user tries to take attendence varify weather or not they are tardy
+  4) Take attendance:
+    4.1 - the user will press a button which will then turn into a check mark, varifying that they were accounted for
+    4.2 - the system will varify weather or not the student is tardy
+  5) View list of attendance:
+    5.1 - the student will be able to see the list of students in the class/ on the attendance list
+    5.2 - the teacher will be able to see how many students have already been accounted for and who exactly is not at the class yet
+  6) View classes: 
+    6.1 Upon arrival of page by instructor, display the active classes of said instructor.
+  7) View system: 
+    7.1 Upon request from system admin, display all current students, teachers, system administrators, state of classes (running or errors)
+  8)Manipulate system data:
+    8.1 Allow admin to modify any piece of information needed to fix errors, including any changes to student, instructor, or system admin and adding or deleting any of the previous profiles or other data.
+  9) Generate attendance session
+    9.1 The system shall allow the professor to create an attendance session.
+    9.2 The system shall let the professor assign cut-off time for attendance.
+    9.3 The system will verify that the cut off time is acceptable. 
+    9.4 The system will display the session on the professor's dashboard.
+  10) Generate Attendance List 
+    10.1 The system will allow the professor to add students.
+    10.2 The system will allow the professor to drop students.
+    10.3 The system will allow the professor to modify the time of the class.
+    10.4 The system will allow the professor to be able to change the status of student attedance.
+  11) Generate Attendance Report
+    11.1 The system will allow the professor to generate an attendance report in the form of an excel file.
+    11.2 The system will email the professor the generated report to their email. 
+    11.3 The report will consist of student names, attendance status, and time that they attend
+
+
+
+Use Case Diagram:
+
+
