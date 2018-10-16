@@ -896,7 +896,7 @@
 												"$ref": "AAAAAAFmN+ogz3r9v44="
 											},
 											"edgePosition": 1,
-											"text": "3 : Go back to student"
+											"text": "3 : If session data removal failed"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -1128,7 +1128,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFmN95i2HjH/KA="
 							},
-							"name": "Go back to student",
+							"name": "If session data removal failed",
 							"source": {
 								"$ref": "AAAAAAFmN+NNanlDles="
 							},
