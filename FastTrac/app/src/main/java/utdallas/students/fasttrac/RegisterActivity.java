@@ -22,4 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+    public void dosomething()
+    {
+        int x = 1;
+    }
 }
