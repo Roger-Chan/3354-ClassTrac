@@ -1,5 +1,6 @@
 package utdallas.students.fasttrac;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,10 +32,15 @@ public class LoginActivity extends AppCompatActivity {
                 // get the strings from the field
                 String un = user_name.getText().toString();
                 String pwd = pass_wrd.getText().toString();
+                int autho = -1; // initially error code
 
                 System.out.println(un + " " + pwd);
-                if(db.validCredentials(un, pwd)){
-                    Intent secondActivity = new Intent(getApplicationContext(), UserAreaActivity.class);
+                if((autho = db.validCredentials(un, pwd)) == 0 || autho == 1){
+                    Intent secondActivity;
+                    if(autho == 0)  // go to student page
+                        secondActivity = new Intent(getApplicationContext(), StudentPage.class);
+                    else
+                        secondActivity = new Intent(getApplicationContext(), ProfessorPage.class);
                     startActivity(secondActivity);
                 }   else{
                     invalid.setVisibility(View.VISIBLE);

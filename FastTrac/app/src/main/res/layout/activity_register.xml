@@ -70,7 +70,7 @@
         android:layout_height="54dp"
         android:ems="10"
         android:hint="School E-mail"
-        android:inputType="number"
+        android:inputType="textWebEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
