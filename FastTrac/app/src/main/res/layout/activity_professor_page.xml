@@ -23,4 +23,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016" />
+    
+    <ListView
+        android:id="@+id/mylistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="10dp"
+        android:listSelector="@color/green"/>
 </android.support.constraint.ConstraintLayout>
