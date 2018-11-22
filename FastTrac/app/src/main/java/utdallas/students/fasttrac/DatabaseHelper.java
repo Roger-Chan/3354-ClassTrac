@@ -29,9 +29,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addUser(new Student("mgh160030","password","matthew","hicks", "mgh160030@utdallas.fuckyou"));
-        addUser(new Student("mgh160031", "pass", "kevin", "smith", "hellobitch@utdallas.fuckyou"));
-        addUser(new Professor("professor1", "password", "professor", "buttlicker", "professorbuttlicker347@utdallas.fuckyou.com"));
+        addUser(new Student("mgh160030","password","matthew","hicks", "student1@utdallas.edu"));
+        addUser(new Student("mgh160031", "pass", "kevin", "smith", "student2@utdallas.edu"));
+        addUser(new Professor("professor1", "password", "professor", "proflast", "prof@utdallas.edu"));
     }
 
     @Override

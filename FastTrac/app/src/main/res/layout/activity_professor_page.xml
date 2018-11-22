@@ -30,5 +30,5 @@
         android:layout_height="match_parent"
         android:divider="@color/colorPrimaryDark"
         android:dividerHeight="10dp"
-        android:listSelector="@color/green"/>
+        android:listSelector="@color/colorPrimary"/>
 </android.support.constraint.ConstraintLayout>
