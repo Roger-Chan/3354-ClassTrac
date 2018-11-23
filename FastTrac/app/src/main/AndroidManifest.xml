@@ -19,7 +19,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserAreaActivity" />
         <activity android:name=".StudentPage" />
-        <activity android:name=".ProfessorPage"></activity>
+        <activity android:name=".ProfessorPage" />
+        <activity android:name=".TakeAttendence"></activity>
     </application>
 
 </manifest>

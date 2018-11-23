@@ -1,6 +1,8 @@
 package utdallas.students.fasttrac;
 
-public class Student extends User{
+import java.io.Serializable;
+
+public class Student extends User implements Serializable {
     //DatabaseHelper db;
 
     Student(String user_name, String passwrd, String first_name, String last_name, String email){

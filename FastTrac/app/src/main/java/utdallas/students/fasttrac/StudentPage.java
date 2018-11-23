@@ -1,14 +1,17 @@
 package utdallas.students.fasttrac;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.KeyListener;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class StudentPage extends AppCompatActivity {
+import java.io.Serializable;
+
+public class StudentPage extends AppCompatActivity implements Serializable {
 
 
     ListView Listview;
@@ -18,41 +21,75 @@ public class StudentPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_page);
 
-        // Create a Listview object
-        Listview = (ListView)findViewById(R.id.mylistview);
+        // get the info of the student who is accessing this page
+        Student student = (Student) getIntent().getSerializableExtra("Student");
 
-        //defind array values to show into Listview
-        String[] my_class_list = new String []{ "Class 1","Class 2","Class 4","Class 5"};
+        Button takeAttendencebtn = (Button) findViewById(R.id.Take_Attendence_btn);
+        Button editInfobtn = (Button) findViewById(R.id.edit_info_btn);
+        TextView UserText = (TextView) findViewById(R.id.Username_field);
+        TextView FirstText = (TextView) findViewById(R.id.First_name_field);
+        TextView LastText = (TextView) findViewById(R.id.Last_name_field);
+        TextView EmailText = (TextView) findViewById(R.id.email_field);
 
-        //Define an Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                android.R.id.text1,my_class_list);
-        //Define parameters for the Adapter, a)Context , b) layout for the rows of list
-        // c) ID for TextView to which data is written, d) array of data
-        Listview.setAdapter(adapter);
+        // set the info to the correct stuff
+        UserText.setText(student.getUsername());
+        FirstText.setText(student.getFirst_name());
+        LastText.setText(student.getLast_name());
+        EmailText.setText(student.getEmail());
 
-        Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // make the textfields not editable but first get the tags to allow for edit later
+        UserText.setTag(UserText.getKeyListener());
+        FirstText.setTag(FirstText.getKeyListener());
+        LastText.setTag(LastText.getKeyListener());
+        EmailText.setTag(EmailText.getKeyListener());
+        UserText.setKeyListener(null);
+        FirstText.setKeyListener(null);
+        LastText.setKeyListener(null);
+        EmailText.setKeyListener(null);
+
+        // when the attendence button is clicked
+        takeAttendencebtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getApplicationContext(),my_class_list[position] + " was clicked", Toast.LENGTH_SHORT).show();
-
-
+            public void onClick(View v) {
+               Intent attendenceActivity = new Intent(getApplicationContext(), TakeAttendence.class);
+               attendenceActivity.putExtra("Student", student);
+               startActivity(attendenceActivity);
             }
         });
 
-        Listview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // when the edit info button is clicked
+        editInfobtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
+                // check if button was clicked to change info
+                if(UserText.getKeyListener() == null){
+                    // dissable the take attendence button
+                    takeAttendencebtn.setEnabled(false);
 
-                Toast.makeText( getApplicationContext(),my_class_list[position] +"was selected", Toast.LENGTH_SHORT).show();
-            }
+                    // change the text of the button to say update
+                    editInfobtn.setText("UPDATE");
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                    // set all the textviews to editable
+                    UserText.setKeyListener((KeyListener) UserText.getTag());
+                    FirstText.setKeyListener((KeyListener) FirstText.getTag());
+                    LastText.setKeyListener((KeyListener) LastText.getTag());
+                    EmailText.setKeyListener((KeyListener) EmailText.getTag());
+                }   else{
+                    // enable the take attendence button
+                    takeAttendencebtn.setEnabled(true);
 
+                    // change text of edit info button back to edit info
+                    editInfobtn.setText("EDIT INFO");
 
+                    // make the textfields not editable
+                    UserText.setKeyListener(null);
+                    FirstText.setKeyListener(null);
+                    LastText.setKeyListener(null);
+                    EmailText.setKeyListener(null);
 
+                    //update the students status
+
+                }
             }
         });
     }

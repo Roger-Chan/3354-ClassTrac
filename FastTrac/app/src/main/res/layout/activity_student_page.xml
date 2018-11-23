@@ -6,30 +6,157 @@
     android:layout_height="match_parent"
     tools:context=".StudentPage">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/email_field"
+        android:layout_width="199dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/Last_name_field" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="151dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:paddingLeft="30dp"
+        android:paddingTop="8dp"
+        android:text="email:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/email_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/email_field" />
+
+    <TextView
+        android:id="@+id/Lname"
+        android:layout_width="151dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:paddingLeft="30dp"
+        android:paddingTop="8dp"
+        android:text="Last Name:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Last_name_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Last_name_field" />
+
+    <EditText
+        android:id="@+id/First_name_field"
+        android:layout_width="199dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Fisrt Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Fname"
+        app:layout_constraintTop_toBottomOf="@+id/Username_field" />
+
+    <EditText
+        android:id="@+id/Last_name_field"
+        android:layout_width="199dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Last Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Lname"
+        app:layout_constraintTop_toBottomOf="@+id/First_name_field" />
+
+    <TextView
+        android:id="@+id/Fname"
+        android:layout_width="151dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:paddingLeft="30dp"
+        android:paddingTop="8dp"
+        android:text="First Name:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/First_name_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/First_name_field" />
+
+    <Button
+        android:id="@+id/Take_Attendence_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Student"
+        android:text="Take Attendence"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_info_btn"
+        app:layout_constraintEnd_toStartOf="@+id/edit_info_btn"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_info_btn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/edit_info_btn"
+        android:layout_width="147dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="56dp"
+        android:text="Edit Info"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/Uname"
+        android:layout_width="151dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="30dp"
+        android:paddingTop="8dp"
+        android:text="Username:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Username_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Username_field" />
+
+    <EditText
+        android:id="@+id/Username_field"
+        android:layout_width="203dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016" />
-    
-    <ListView
-        android:id="@+id/mylistview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="10dp"
-        android:listSelector="@color/green"/>
+        app:layout_constraintStart_toEndOf="@+id/Uname"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

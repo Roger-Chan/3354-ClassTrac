@@ -67,28 +67,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME, null, values);
     }
 
-    /*
-    public Cursor getAllData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        return res;
-    }
-    */
-
-    public int validCredentials(String username, String passwrd){
+    public User validCredentials(String username, String passwrd){
         SQLiteDatabase db = this.getWritableDatabase();
 
         // query to find the username
         Cursor cursor = db.rawQuery("select * from " + TABLE_NAME, null);
 
         while(cursor.moveToNext()){
-            System.out.println(cursor.getString(0) + " " + cursor.getString(1));
             if(cursor.getString(0).equalsIgnoreCase(username) && cursor.getString(1).equalsIgnoreCase(passwrd)){
-                return cursor.getInt(5);
+                String uname = cursor.getString(0);
+                String passw = cursor.getString(1);
+                String fname = cursor.getString(2);
+                String lname = cursor.getString(3);
+                String mail = cursor.getString(4);
+                int auth = cursor.getInt(5);;
+
+                if(auth == 0){
+                    // its a student
+                    return new Student(uname, passw, fname, lname, mail);
+                }   else{
+                    // its a professor
+                    return new Professor(uname, passw, fname, lname, mail);
+                }
             }
         }
 
-        return ERROR;
+        return null;
     }
 
     public void deleteAll(){

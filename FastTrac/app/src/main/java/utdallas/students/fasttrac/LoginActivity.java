@@ -32,15 +32,16 @@ public class LoginActivity extends AppCompatActivity {
                 // get the strings from the field
                 String un = user_name.getText().toString();
                 String pwd = pass_wrd.getText().toString();
-                int autho = -1; // initially error code
+                User user = db.validCredentials(un,pwd); // initially error code
+                Intent secondActivity;
 
-                System.out.println(un + " " + pwd);
-                if((autho = db.validCredentials(un, pwd)) == 0 || autho == 1){
-                    Intent secondActivity;
-                    if(autho == 0)  // go to student page
-                        secondActivity = new Intent(getApplicationContext(), StudentPage.class);
-                    else
-                        secondActivity = new Intent(getApplicationContext(), ProfessorPage.class);
+                //student is 0, professor =1
+                if(user.authorization == 0) {
+                    secondActivity = new Intent(getApplicationContext(), StudentPage.class);
+                    secondActivity.putExtra("Student",user);
+                    startActivity(secondActivity);
+                }   else if(user.authorization == 1){
+                    secondActivity = new Intent(getApplicationContext(), ProfessorPage.class);
                     startActivity(secondActivity);
                 }   else{
                     invalid.setVisibility(View.VISIBLE);
