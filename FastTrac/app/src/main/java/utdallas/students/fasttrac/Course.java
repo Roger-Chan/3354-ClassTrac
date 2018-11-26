@@ -8,6 +8,14 @@ public class Course {
     String instructor = null;
     Student students = null;
 
+    public Course(){
+        setId(null);
+        setName(null);
+        setCode(null);
+        setTime(null);
+        setInstructor(null);
+    }
+
     public Course(String id, String name, String code, String time, String instructor){
         setId(id);
         setName(name);
@@ -28,5 +36,11 @@ public class Course {
     public void setTime(String time){this.time = time;}
     public void setInstructor(String instructor){this.instructor = instructor;}
 
-
+    public void clone(Course course){
+        setId(course.getId());
+        setName(course.getName());
+        setCode(course.getCode());
+        setTime(course.getTime());
+        setInstructor(course.getInstructor());
+    }
 }

@@ -5,6 +5,8 @@ public class Professor extends User{
     Professor(String user_name, String passwrd, String first_name, String last_name, String email){
         super(user_name,passwrd,first_name,last_name,email);
         setAuthorization(PROFESSOR);
-        //db.addUser(this);
+    }
+    public void makeCourse(String Course_name, String Course_code, String time){
+
     }
 }

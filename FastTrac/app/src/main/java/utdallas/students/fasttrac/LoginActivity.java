@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(secondActivity);
                 }   else if(user.authorization == 1){
                     secondActivity = new Intent(getApplicationContext(), ProfessorPage.class);
+                    secondActivity.putExtra("Professor", user);
                     startActivity(secondActivity);
                 }   else{
                     invalid.setVisibility(View.VISIBLE);

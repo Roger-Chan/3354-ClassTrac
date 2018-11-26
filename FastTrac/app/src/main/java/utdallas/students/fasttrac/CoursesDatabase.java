@@ -21,6 +21,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
         addCourse(new Course("SE 3354", "Software Engineering", "12345", "10am", "Dr. WEI"));
+        addCourse(new Course("CE 2337", "CompSci 2", "13346", "11am", "mr.poopybutthole"));
     }
 
     @Override

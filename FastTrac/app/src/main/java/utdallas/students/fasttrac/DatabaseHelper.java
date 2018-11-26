@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         deleteAll();
         addUser(new Student("mgh160030","password","matthew","hicks", "mgh160030@utdallas.fuckyou"));
         addUser(new Student("mgh160031", "pass", "kevin", "smith", "hellobitch@utdallas.fuckyou"));
-        addUser(new Professor("professor1", "password", "professor", "buttlicker", "professorbuttlicker347@utdallas.fuckyou.com"));
+        addUser(new Professor("professor1", "password", "Professor", "buttlicker", "professorbuttlicker347@utdallas.fuckyou.com"));
     }
 
     @Override

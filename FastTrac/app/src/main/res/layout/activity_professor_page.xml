@@ -6,29 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".ProfessorPage">
 
+    <ListView
+        android:id="@+id/mylistview"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="180dp"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="10dp"
+        android:listSelector="#008000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="64dp"
-        android:layout_height="17dp"
+        android:id="@+id/course_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="instructor"
+        android:text="Courses"
+        app:layout_constraintBottom_toTopOf="@+id/mylistview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/make_course_btn"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:text="Add Course"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_course_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_course_btn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/edit_course_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="EDIT COURSE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016" />
-    
-    <ListView
-        android:id="@+id/mylistview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="10dp"
-        android:listSelector="#008000"/>
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toEndOf="@+id/make_course_btn"
+        app:layout_constraintTop_toBottomOf="@+id/mylistview" />
 </android.support.constraint.ConstraintLayout>
