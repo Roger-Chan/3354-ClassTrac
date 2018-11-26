@@ -36,7 +36,9 @@ public class LoginActivity extends AppCompatActivity {
                 Intent secondActivity;
 
                 //student is 0, professor =1
-                if(user.authorization == 0) {
+                if (user == null){
+                    invalid.setVisibility(View.VISIBLE);
+                }   else if(user.authorization == 0) {
                     secondActivity = new Intent(getApplicationContext(), StudentPage.class);
                     secondActivity.putExtra("Student",user);
                     startActivity(secondActivity);
@@ -44,8 +46,6 @@ public class LoginActivity extends AppCompatActivity {
                     secondActivity = new Intent(getApplicationContext(), ProfessorPage.class);
                     secondActivity.putExtra("Professor", user);
                     startActivity(secondActivity);
-                }   else{
-                    invalid.setVisibility(View.VISIBLE);
                 }
             }
         });
