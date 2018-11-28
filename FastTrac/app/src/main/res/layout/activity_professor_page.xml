@@ -15,7 +15,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="180dp"
-        android:divider="@color/colorPrimaryDark"
         android:dividerHeight="10dp"
         android:listSelector="#008000"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,6 @@
 package utdallas.students.fasttrac;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ public class ProfessorPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_page);
 
-        Button add_class_btn = (Button) findViewById(R.id.addCourse_btn);
+        Button add_course_btn = (Button) findViewById(R.id.make_course_btn);
         Button edit_course_btn = (Button) findViewById(R.id.edit_course_btn);
         ListView list = (ListView)findViewById(R.id.mylistview);
         TextView course_prompt = (TextView) findViewById(R.id.course_prompt);
@@ -44,31 +45,14 @@ public class ProfessorPage extends AppCompatActivity {
         // c) ID for TextView to which data is written, d) array of data
         list.setAdapter(adapter);
 
-        /*
-        Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        add_course_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getApplicationContext(),my_class_list[position] + " was clicked", Toast.LENGTH_SHORT).show();
-
-
+            public void onClick(View v) {
+                // go to the add a class activity
+                Intent CreateCourse = new Intent(getApplicationContext(), makeCourse.class);
+                CreateCourse.putExtra("Professor", professor);
+                startActivity(CreateCourse);
             }
         });
-
-        Listview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText( getApplicationContext(),my_class_list[position] +"was selected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-
-
-            }
-        });
-        */
     }
 }
