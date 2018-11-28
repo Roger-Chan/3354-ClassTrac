@@ -23,11 +23,11 @@ public class LoginActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        bLoginbtn = (Button)findViewById(R.id.bLogin);
-        user_name = (EditText)findViewById(R.id.etUsername);
-        pass_wrd = (EditText)findViewById(R.id.etPassword);
-        invalid = (TextView) findViewById(R.id.invalid_login);
-        tvRegister = (TextView) findViewById(R.id.tvRegister);
+        Button bLoginbtn = (Button)findViewById(R.id.bLogin);
+        EditText user_name = (EditText)findViewById(R.id.etUsername);
+        EditText pass_wrd = (EditText)findViewById(R.id.etPassword);
+        TextView invalid = (TextView) findViewById(R.id.invalid_login);
+        TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
 
         logIn();
 
