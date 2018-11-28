@@ -74,7 +74,8 @@ public class StudentPage extends AppCompatActivity implements Serializable {
                     FirstText.setKeyListener((KeyListener) FirstText.getTag());
                     LastText.setKeyListener((KeyListener) LastText.getTag());
                     EmailText.setKeyListener((KeyListener) EmailText.getTag());
-                }   else{
+                }
+                else{
                     // enable the take attendence button
                     takeAttendencebtn.setEnabled(true);
 
