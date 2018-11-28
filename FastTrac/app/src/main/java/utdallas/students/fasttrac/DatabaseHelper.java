@@ -65,8 +65,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // if error then returns -1
         long result = db.insert(TABLE_NAME, null, values);
-
     }
+
     public User validCredentials(String username, String passwrd){
         SQLiteDatabase db = this.getWritableDatabase();
 
