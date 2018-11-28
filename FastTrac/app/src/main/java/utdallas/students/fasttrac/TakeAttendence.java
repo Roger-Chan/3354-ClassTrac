@@ -21,7 +21,7 @@ public class TakeAttendence extends AppCompatActivity {
         int SUCCESS = 1;
 
         // make the course database
-        cd = new CoursesDatabase(this);
+        cd = CoursesDatabase.getInstance(this);
 
         // get the student object
         Student student = (Student) getIntent().getSerializableExtra("Student");

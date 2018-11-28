@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 /*
     if you want to update the table and it gives an error like:
@@ -15,28 +16,39 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    //static global instance
+    private static DatabaseHelper db = null;
+
     public int ERROR = -1;
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "user_manager.db";
     public static final String TABLE_NAME = "USERS";
     public static final String KEY_USERNAME = "USERNAME";           //column index 0
     public static final String KEY_PASSWRD = "PASSWORD";            //column index 1
-    public static final String KEY_FIRSTNAME = "FIRSTNAME";         //coulum index 2
+    public static final String KEY_FIRSTNAME = "FIRSTNAME";         //column index 2
     public static final String KEY_LASTNAME = "LASTNAME";           //column index 3
     public static final String KEY_EMAIL = "EMAIL";                 //column index 4
     public static final String KEY_AUTHORIZATION = "AUTHORIZATION"; //column index 5
 
-    public DatabaseHelper(Context context){
+    private DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addUser(new Student("mgh160030","password","matthew","hicks", "mgh160030@utdallas.fuckyou"));
-        addUser(new Student("mgh160031", "pass", "kevin", "smith", "hellobitch@utdallas.fuckyou"));
-        addUser(new Professor("professor1", "password", "Professor", "buttlicker", "professorbuttlicker347@utdallas.fuckyou.com"));
+        addUser(new Student("mgh160030","password","matthew","hicks", "mgh160030@utdallas.edu"));
+        addUser(new Student("mgh160031", "pass", "kevin", "smith", "smith1@utdallas.edu"));
+        addUser(new Professor("professor1", "password", "jason", "smith", "jason.smith@utdallas.edu"));
+    }
+
+    public static DatabaseHelper getInstance(Context context){
+        if (db == null)
+        {
+            db = new DatabaseHelper(context);
+        }
+        return db;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + TABLE_NAME +
+        final String SQL_CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                 "(" + KEY_USERNAME  +   " TEXT NOT NULL, "  +
                 KEY_PASSWRD         +   " TEXT NOT NULL, "  +
                 KEY_FIRSTNAME       +   " TEXT NOT NULL, "  +

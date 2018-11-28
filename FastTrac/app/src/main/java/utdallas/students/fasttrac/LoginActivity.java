@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        db = new DatabaseHelper(this);
+        db = DatabaseHelper.getInstance(this);
 
         Button bLoginbtn = (Button)findViewById(R.id.bLogin);
         final EditText user_name = (EditText)findViewById(R.id.etUsername);
@@ -54,7 +54,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+
                 LoginActivity.this.startActivity(registerIntent);
+
 
             }
         });
