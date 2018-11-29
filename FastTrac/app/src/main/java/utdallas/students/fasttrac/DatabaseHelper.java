@@ -23,7 +23,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "user_manager.db";
     public static final String TABLE_NAME = "USERS";
-    public static final String KEY_ID = "ID";
     public static final String KEY_USERNAME = "USERNAME";           //column index 0
     public static final String KEY_PASSWRD = "PASSWORD";            //column index 1
     public static final String KEY_FIRSTNAME = "FIRSTNAME";         //column index 2
@@ -51,7 +50,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                 "(" +
-                KEY_ID              +   "INT PRIMARY KEY AUTOINCREMENT, " +
                 KEY_USERNAME        +   " TEXT NOT NULL, "  +
                 KEY_PASSWRD         +   " TEXT NOT NULL, "  +
                 KEY_FIRSTNAME       +   " TEXT NOT NULL, "  +
@@ -79,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_AUTHORIZATION, user.getAuthorization());
 
         // if error then returns -1
-        db.insert(TABLE_NAME, null, values);
+        long result = db.insert(TABLE_NAME, null, values);
 
 
     }
@@ -116,16 +114,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
-    public boolean updateData(String id, String username, String pass, String firstname, String lastname, String email){
+    public boolean updateData(String username, String pass, String firstname, String lastname, String email){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ID, id);
         contentValues.put(KEY_USERNAME, username);
         contentValues.put(KEY_PASSWRD, pass);
         contentValues.put(KEY_FIRSTNAME, firstname);
         contentValues.put(KEY_LASTNAME, lastname);
         contentValues.put(KEY_EMAIL, email);
-        db.update(TABLE_NAME, contentValues, "id = ?", new String [] {id});
+       // db.update(TABLE_NAME, contentValues, "id = ?", new String [] {id});
         return true;
     }
 }
