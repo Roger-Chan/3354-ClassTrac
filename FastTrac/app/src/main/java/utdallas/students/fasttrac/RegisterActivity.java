@@ -19,11 +19,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         final Button bRegister = (Button) findViewById(R.id.bRegister);
 
-
-
     }
-    public void dosomething()
-    {
-        int x = 1;
-    }
+
 }

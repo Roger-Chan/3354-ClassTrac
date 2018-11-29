@@ -1,12 +1,13 @@
 package utdallas.students.fasttrac;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 
 //import org.w3c.dom.Text;
 
@@ -18,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        db = new DatabaseHelper(this);
+        db = DatabaseHelper.getInstance(this);
 
         Button bLoginbtn = (Button)findViewById(R.id.bLogin);
         final EditText user_name = (EditText)findViewById(R.id.etUsername);
@@ -34,6 +35,13 @@ public class LoginActivity extends AppCompatActivity {
                 String pwd = pass_wrd.getText().toString();
                 User user = db.validCredentials(un,pwd); // initially error code
                 Intent secondActivity;
+
+                //shows error message if bad credentials
+                if (user == null)
+                {
+                    Toast.makeText(getApplicationContext(), "no user found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 //student is 0, professor =1
                 if(user.authorization == 0) {
@@ -54,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+
                 LoginActivity.this.startActivity(registerIntent);
 
             }

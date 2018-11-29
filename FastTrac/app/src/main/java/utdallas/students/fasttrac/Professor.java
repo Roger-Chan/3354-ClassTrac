@@ -6,6 +6,7 @@ public class Professor extends User{
         super(user_name,passwrd,first_name,last_name,email);
         setAuthorization(PROFESSOR);
     }
+
     public void makeCourse(String Course_name, String Course_code, String time){
 
     }

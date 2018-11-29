@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class CoursesDatabase extends SQLiteOpenHelper {
+    private static CoursesDatabase cd = null;
+
     public int ERROR = -1;
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "course_manager.db";
@@ -17,13 +19,19 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public static final String KEY_TIME = "COURSE_TIME";           //column index 3
     public static final String KEY_INSTRUCTOR = "COURSE_INSTRUCTOR";                 //column index 4
 
-    public CoursesDatabase(Context context){
+    private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
         addCourse(new Course("SE 3354", "Software Engineering", "12345", "10am", "Dr. WEI"));
         addCourse(new Course("CE 2337", "CompSci 2", "13346", "11am", "mr.poopybutthole"));
     }
 
+    public static CoursesDatabase getInstance(Context context){
+        if (cd == null){
+            cd = new CoursesDatabase(context);
+        }
+        return cd;
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + TABLE_NAME +
