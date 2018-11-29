@@ -13,9 +13,6 @@ import java.io.Serializable;
 
 public class StudentPage extends AppCompatActivity implements Serializable {
 
-
-    ListView Listview;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
