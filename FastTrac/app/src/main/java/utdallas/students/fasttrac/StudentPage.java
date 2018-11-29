@@ -70,8 +70,6 @@ public class StudentPage extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View v) {
 
-                //store old username to find in database
-                String UserBefore = UserText.getText().toString();
 
                 // check if button was clicked to change info
                 if(UserText.getKeyListener() == null){
@@ -107,8 +105,8 @@ public class StudentPage extends AppCompatActivity implements Serializable {
                     String LastUp = LastText.getText().toString();
                     String EmailUp = EmailText.getText().toString();
                     String PasswordUp = PasswordText.getText().toString();
-                    int changes = db.updateData(UserBefore, UserUp, PasswordUp, FirstUp, LastUp, EmailUp);
-                    Toast.makeText(StudentPage.this, "Updated " + String.valueOf(changes) + " variables", Toast.LENGTH_SHORT).show();
+                    db.updateData(student.getUsername(), UserUp, PasswordUp, FirstUp, LastUp, EmailUp);
+                    Toast.makeText(StudentPage.this, "Successfully Updated", Toast.LENGTH_SHORT).show();
 
                 }
             }

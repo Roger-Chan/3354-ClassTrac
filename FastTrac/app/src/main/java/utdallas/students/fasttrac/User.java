@@ -14,7 +14,7 @@ public class User implements Serializable {
     String first_name = null;
     String last_name = null;
     String email = null;
-    int authorization;
+    int authorization = 0;
 
     // make an array list of courses
     ArrayList<Course> courses = new ArrayList<Course>();
