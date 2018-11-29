@@ -3,9 +3,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 
 //import org.w3c.dom.Text;
 
@@ -34,6 +36,13 @@ public class LoginActivity extends AppCompatActivity {
                 User user = db.validCredentials(un,pwd); // initially error code
                 Intent secondActivity;
 
+                //shows error message if bad credentials
+                if (user == null)
+                {
+                    Toast.makeText(getApplicationContext(), "no user found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //student is 0, professor =1
                 if(user.authorization == 0) {
                     secondActivity = new Intent(getApplicationContext(), StudentPage.class);
@@ -55,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
 
                 LoginActivity.this.startActivity(registerIntent);
-
 
             }
         });

@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="email"
+        android:text="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/email"
@@ -31,7 +31,7 @@
         android:layout_marginLeft="8dp"
         android:paddingLeft="30dp"
         android:paddingTop="8dp"
-        android:text="email:"
+        android:text="Email:"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/email_field"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/Last_name_field"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Last_name_field" />
+        app:layout_constraintTop_toTopOf="@+id/Last_name_field"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/First_name_field"
@@ -57,12 +58,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Fisrt Name"
+        android:text="First Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Fname"
@@ -97,7 +98,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/First_name_field"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/First_name_field" />
+        app:layout_constraintTop_toTopOf="@+id/First_name_field"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/Take_Attendence_btn"
@@ -148,7 +150,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
@@ -158,5 +160,36 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Uname"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="225dp"
+        android:layout_marginRight="225dp"
+        android:text="    Password:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/password_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/password_field" />
+
+    <EditText
+        android:id="@+id/password_field"
+        android:layout_width="198dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/email_field" />
 
 </android.support.constraint.ConstraintLayout>

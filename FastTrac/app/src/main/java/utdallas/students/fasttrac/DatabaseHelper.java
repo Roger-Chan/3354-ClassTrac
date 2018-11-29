@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addUser(new Student("mgh160030","password","matthew","hicks", "mgh160030@utdallas.edu"));
+        addUser(new Student("username","password","matthew","hicks", "mgh160030@utdallas.edu"));
         addUser(new Student("mgh160031", "pass", "kevin", "smith", "smith1@utdallas.edu"));
         addUser(new Professor("professor1", "password", "jason", "smith", "jason.smith@utdallas.edu"));
     }
@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
-    public boolean updateData(String username, String pass, String firstname, String lastname, String email){
+    public int updateData(String UserBefore, String username, String pass, String firstname, String lastname, String email){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_USERNAME, username);
@@ -122,7 +122,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_FIRSTNAME, firstname);
         contentValues.put(KEY_LASTNAME, lastname);
         contentValues.put(KEY_EMAIL, email);
-       // db.update(TABLE_NAME, contentValues, "id = ?", new String [] {id});
-        return true;
+
+        return db.update(TABLE_NAME, contentValues, "USERNAME = ?", new String [] {UserBefore});
+
+
     }
 }

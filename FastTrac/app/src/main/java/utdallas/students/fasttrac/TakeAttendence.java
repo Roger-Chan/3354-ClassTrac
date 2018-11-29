@@ -82,9 +82,9 @@ public class TakeAttendence extends AppCompatActivity {
                             }
                         }
 
-                        // if we have a weird character then dont chack the database
+                        // if we have a weird character, then don't check the database
                         if(weird_char){
-                            // clock it and then if tey do it three times, report them to the system
+                            // clock it and then if they do it three times, report them to the system
                             invalid_input.setVisibility(View.VISIBLE);
                         }   else{
                             Course course = cd.findCourse(code);
