@@ -57,7 +57,6 @@ public class TakeAttendence extends AppCompatActivity {
         addCoursebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("You have " + student.getCourse().size() + " courses");
                 // check to see if the prompt is already visable
                 if (codeArea.getVisibility() == View.INVISIBLE){
                     // prompt the user to enter the class code in a textfield

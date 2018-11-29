@@ -10,20 +10,21 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     private static CoursesDatabase cd = null;
 
     public int ERROR = -1;
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "course_manager.db";
     public static final String TABLE_NAME = "COURSES";
     public static final String KEY_ID = "ID";           //column index 0
     public static final String KEY_NAME= "COURSE_NAME";            //column index 1
     public static final String KEY_CODE = "COURSE_CODE";         //coulum index 2
-    public static final String KEY_TIME = "COURSE_TIME";           //column index 3
-    public static final String KEY_INSTRUCTOR = "COURSE_INSTRUCTOR";                 //column index 4
+    public static final String KEY_HOUR = "COURSE_HOUR";           //column index 3
+    public static final String KEY_MINUTE = "COURSE_MINUTE";           //column index 4
+    public static final String KEY_INSTRUCTOR = "COURSE_INSTRUCTOR";                 //column index 5
 
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addCourse(new Course("SE 3354", "Software Engineering", "12345", "10am", "Dr. WEI"));
-        addCourse(new Course("CE 2337", "CompSci 2", "13346", "11am", "mr.poopybutthole"));
+        addCourse(new Course("SE 3354", "Software Engineering", "12345", 10, 30, "Dr. WEI"));
+        addCourse(new Course("CE 2337", "CompSci 2", "13346", 11, 0, "mr.poopybutthole"));
     }
 
     public static CoursesDatabase getInstance(Context context){
@@ -38,7 +39,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 "(" + KEY_ID    +   " TEXT NOT NULL, "  +   // column 0
                 KEY_NAME        +   " TEXT NOT NULL, "  +
                 KEY_CODE        +   " TEXT NOT NULL, "  +
-                KEY_TIME        +   " TEXT NOT NULL, "  +
+                KEY_HOUR        +   " INT, "            +
+                KEY_MINUTE      +   " INT, "            +
                 KEY_INSTRUCTOR  +   " TEXT);"
                 ;
         db.execSQL(SQL_CREATE_USER_TABLE);
@@ -57,7 +59,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         values.put(KEY_ID, course.getId());
         values.put(KEY_NAME , course.getName());
         values.put(KEY_CODE, course.getCode());
-        values.put(KEY_TIME , course.getTime());
+        values.put(KEY_HOUR , course.getHour());
+        values.put(KEY_MINUTE, course.getMinute());
         values.put(KEY_INSTRUCTOR, course.getInstructor());
 
         // if error then returns -1
@@ -74,10 +77,11 @@ public class CoursesDatabase extends SQLiteOpenHelper {
             if (cursor.getString(2).equals(code)){
                 String id = cursor.getString(0);
                 String name = cursor.getString(1);
-                String time = cursor.getString(3);
+                int hour = cursor.getInt(2);
+                int minute = cursor.getInt(3);
                 String instructor = cursor.getString(4);
 
-                return new Course(id, name, code, time, instructor);
+                return new Course(id, name, code, hour, minute, instructor);
             }
         }
 
