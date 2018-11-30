@@ -1,5 +1,6 @@
 package utdallas.students.fasttrac;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,12 +33,17 @@ public class makeCourse extends AppCompatActivity {
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // add the course to our database
                 String id = edit_id.getText().toString();
                 String name = edit_name.getText().toString();
                 String code = edit_code.getText().toString();
                 int hour = clock.getCurrentHour();
                 int minute = clock.getCurrentMinute();
                 cb.addCourse(new Course(id,name,code,hour,minute,professor.getFirst_name() + " " + professor.getLast_name()));
+
+                // go bake to the professor page
+                Intent goBack = new Intent(getApplicationContext(), ProfessorPage.class);
+                startActivity(goBack);
 
             }
         });

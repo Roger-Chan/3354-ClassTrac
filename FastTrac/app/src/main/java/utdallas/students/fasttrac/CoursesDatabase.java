@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class CoursesDatabase extends SQLiteOpenHelper {
     private static CoursesDatabase cd = null;
 
@@ -24,7 +26,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
         addCourse(new Course("SE 3354", "Software Engineering", "12345", 10, 30, "Dr. WEI"));
-        addCourse(new Course("CE 2337", "CompSci 2", "13346", 11, 0, "mr.poopybutthole"));
+        addCourse(new Course("CE 2337", "CompSci 2", "13346", 11, 0, "jason smith"));
     }
 
     public static CoursesDatabase getInstance(Context context){
@@ -91,5 +93,19 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public void deleteAll(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
+    }
+
+    public ArrayList<String> getProfessorCourses(String firstName, String lastName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> names = new ArrayList<String>();
+
+        // search for the student and get all the codes they have
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[] {firstName + " " + lastName});
+
+        while(cursor.moveToNext()){
+            names.add(cursor.getString(1));
+        }
+
+        return names;
     }
 }

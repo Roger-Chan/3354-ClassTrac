@@ -48,7 +48,7 @@ public class TakeAttendence extends AppCompatActivity {
 
         // 5 is the max number of classes the student can have
         for(int i = 0; i < 5; i++){
-            // add the courses they have to our arraylist
+            // add the courses they are already in to our arraylist
             if(students_current_codes.get(i).contains("NULL")) {
                 // DO NOTHING
             }   else{
@@ -104,18 +104,16 @@ public class TakeAttendence extends AppCompatActivity {
                                 //tell the user that there was invalid input
                                 invalid_input.setVisibility(View.VISIBLE);
                             }   else{
-                                int status = student.addCourse(course);
-                                if(status == ERROR){
+                                // add the user to the course if we can
+                                Boolean status = db.addCourse(student.getUsername(), student.getPasswrd(), course);
+                                if(!status){
                                     //tell the user that there was invalid input
                                     invalid_input.setVisibility(View.VISIBLE);
                                 }   else{
-                                    // remove the invalid input textfield f its showing
+                                    // remove the invalid input textfield if its showing
                                     invalid_input.setVisibility(View.INVISIBLE);
                                     // update the listview
                                     adapter.add(course.name);
-
-                                    // add the course to the users course list
-
                                 }
                             }
                         }

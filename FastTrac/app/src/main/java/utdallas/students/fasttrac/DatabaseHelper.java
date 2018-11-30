@@ -167,14 +167,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE USERNAME = ? AND PASSWORD = ?",new String[] {username,password});
         while(cursor.moveToNext()){
             for(int i = 6; i <= 10; i++){
+                // also checks if all the courses are take up
                 if(cursor.getString(i).contains("NULL")){
                     // add the course to this column
                     ContentValues contentValues = new ContentValues();
                     contentValues.put("COURSE_" + (i - 5) + "_CODE", course.getCode());
                     db.update(TABLE_NAME, contentValues, "USERNAME = ? AND PASSWORD = ?", new String[] {username, password});
                     return true;
-                }   else{
-                    System.out.println("COURSE CODEEEEEee: " + cursor.getString(i));
+                }   else if(cursor.getString(i).contains(course.getCode())){
+                    // the user is already in the class
+                    return false;
                 }
             }
         }

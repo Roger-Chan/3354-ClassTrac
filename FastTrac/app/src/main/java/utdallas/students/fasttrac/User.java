@@ -20,7 +20,7 @@ public class User implements Serializable {
     int authorization = 0;
 
     // make an array list of courses
-    ArrayList<Course> courses = new ArrayList<Course>(5);
+    //ArrayList<Course> courses = new ArrayList<Course>(5);
 
     User(String user_name, String passwrd, String first_name, String last_name, String email){
         this.user_name = user_name;
@@ -36,6 +36,7 @@ public class User implements Serializable {
     public void setLast_name(String last_name) {this.last_name = last_name;}
     public void setEmail(String email) {this.email = email;}
     public void setAuthorization(int authorization){this.authorization = authorization;}
+    /*
     public int addCourse(Course course){
         // check if we are already in the course
         if(equals(course)){
@@ -45,7 +46,9 @@ public class User implements Serializable {
             return SUCCESS;
         }
     }
+    */
 
+    /*
     public boolean equals(Course course){
         for(int i = 0; i < getCourse().size(); i++){
             // grab the course in the array
@@ -56,11 +59,13 @@ public class User implements Serializable {
         }
         return false;
     }
+    */
+
     public String getUsername(){return user_name;}
     public String getPasswrd() {return passwrd;}
     public String getFirst_name() {return first_name;}
     public String getLast_name() {return last_name;}
     public String getEmail() {return email;}
     public int getAuthorization() {return authorization;}
-    public ArrayList<Course> getCourse() {return courses;}
+    //public ArrayList<Course> getCourse() {return courses;}
 }

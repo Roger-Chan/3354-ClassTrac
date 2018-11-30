@@ -22,6 +22,9 @@ public class ProfessorPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_page);
 
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+        CoursesDatabase cd = CoursesDatabase.getInstance(this);
+
         Button add_course_btn = (Button) findViewById(R.id.make_course_btn);
         Button edit_course_btn = (Button) findViewById(R.id.edit_course_btn);
         ListView list = (ListView)findViewById(R.id.mylistview);
@@ -33,10 +36,21 @@ public class ProfessorPage extends AppCompatActivity {
         course_prompt.setText(professor.getFirst_name() + " " + prompt);
 
         //defind array values to show into Listview
-        ArrayList<String> my_class_list = new ArrayList<>();
-        for(int i = 0; i < professor.getCourse(). size(); i++){
-            my_class_list.add(professor.getCourse().get(i).name);
+        //ArrayList<String> my_class_list = new ArrayList<>();
+        ArrayList<String> my_class_list = new ArrayList<>(cd.getProfessorCourses(professor.getFirst_name(), professor.getLast_name()));
+
+        /*
+        // 5 is the max number of classes the student can have
+        for(int i = 0; i < 5; i++){
+            // add the courses they are already in to our arraylist
+            if(professor_current_codes.get(i).contains("NULL")) {
+                // DO NOTHING
+            }   else{
+                // ADD TO THE LIST
+                my_class_list.add(cd.findCourse(professor_current_codes.get(i)).getName());
+            }
         }
+        */
 
         //Define an Adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, my_class_list);
