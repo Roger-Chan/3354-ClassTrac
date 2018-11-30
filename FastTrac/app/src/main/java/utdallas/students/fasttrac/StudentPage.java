@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.text.method.KeyListener;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 

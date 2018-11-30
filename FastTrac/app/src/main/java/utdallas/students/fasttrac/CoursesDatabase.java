@@ -35,6 +35,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         }
         return cd;
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + TABLE_NAME +
@@ -46,6 +47,10 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 KEY_INSTRUCTOR  +   " TEXT);"
                 ;
         db.execSQL(SQL_CREATE_USER_TABLE);
+    }
+
+    public void newClass(SQLiteDatabase db){
+     //   final String SQL_CREATE_USER_TABLE;
     }
 
     @Override
