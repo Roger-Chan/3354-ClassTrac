@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class TakeAttendence extends AppCompatActivity {
     CoursesDatabase cd;
-
+    DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int ERROR = -1;
@@ -22,12 +22,15 @@ public class TakeAttendence extends AppCompatActivity {
 
         // make the course database
         cd = CoursesDatabase.getInstance(this);
+        db = DatabaseHelper.getInstance(this);
 
         // get the student object
         Student student = (Student) getIntent().getSerializableExtra("Student");
+
         // add a fake course for the student to test
         Course fake = cd.findCourse("13346");
-        student.addCourse(fake);
+        //student.addCourse(fake);
+        db.addCourse(student.getUsername(), student.getPasswrd(), fake);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_attendence);
@@ -40,8 +43,18 @@ public class TakeAttendence extends AppCompatActivity {
 
         //defind array values to show into Listview
         ArrayList<String> my_class_list = new ArrayList<>();
-        for(int i = 0; i < student.getCourse().size(); i++){
-            my_class_list.add(student.getCourse().get(i).name);
+
+        ArrayList<String> students_current_codes = new ArrayList<>(db.getCodes(student.getUsername(), student.getPasswrd()));
+
+        // 5 is the max number of classes the student can have
+        for(int i = 0; i < 5; i++){
+            // add the courses they have to our arraylist
+            if(students_current_codes.get(i).contains("NULL")) {
+                // DO NOTHING
+            }   else{
+                // ADD TO THE LIST
+                my_class_list.add(cd.findCourse(students_current_codes.get(i)).getName());
+            }
         }
 
         //Define an Adapter
@@ -100,6 +113,9 @@ public class TakeAttendence extends AppCompatActivity {
                                     invalid_input.setVisibility(View.INVISIBLE);
                                     // update the listview
                                     adapter.add(course.name);
+
+                                    // add the course to the users course list
+
                                 }
                             }
                         }

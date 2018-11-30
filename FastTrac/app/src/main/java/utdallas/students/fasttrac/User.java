@@ -1,9 +1,12 @@
 package utdallas.students.fasttrac;
 
+import android.provider.ContactsContract;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
+
     static int STUDENT = 0;
     static int PROFESSOR = 1;
     static int ERROR = -1;
@@ -17,7 +20,7 @@ public class User implements Serializable {
     int authorization = 0;
 
     // make an array list of courses
-    ArrayList<Course> courses = new ArrayList<Course>();
+    ArrayList<Course> courses = new ArrayList<Course>(5);
 
     User(String user_name, String passwrd, String first_name, String last_name, String email){
         this.user_name = user_name;
