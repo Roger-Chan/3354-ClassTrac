@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class CoursesDatabase extends SQLiteOpenHelper {
     private static CoursesDatabase cd = null;
 
-    public int ERROR = -1;
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "course_manager.db";
     public static final String TABLE_NAME = "COURSES";
@@ -71,7 +70,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         values.put(KEY_INSTRUCTOR, course.getInstructor());
 
         // if error then returns -1
-        long result = db.insert(TABLE_NAME, null, values);
+         db.insert(TABLE_NAME, null, values);
     }
 
     public Course findCourse(String code) {

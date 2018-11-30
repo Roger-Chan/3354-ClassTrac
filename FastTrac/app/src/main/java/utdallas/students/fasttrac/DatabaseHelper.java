@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /*
@@ -22,7 +19,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //static global instance
     private static DatabaseHelper db = null;
 
-    public int ERROR = -1;
     public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "user_manager.db";
     public static final String TABLE_NAME = "USERS";
@@ -110,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(CODE_COURSE_5, "NULL");
 
         // if error then returns -1
-        long result = db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
 
 
     }
