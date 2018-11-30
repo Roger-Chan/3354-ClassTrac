@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
                 //shows error message if bad credentials
                 if (user == null)
                 {
-                    Toast.makeText(getApplicationContext(), "no user found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Wrong Username and/or Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
