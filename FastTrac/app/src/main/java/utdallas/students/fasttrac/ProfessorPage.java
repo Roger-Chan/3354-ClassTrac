@@ -66,6 +66,8 @@ public class ProfessorPage extends AppCompatActivity {
                 Intent CreateCourse = new Intent(getApplicationContext(), makeCourse.class);
                 CreateCourse.putExtra("Professor", professor);
                 startActivity(CreateCourse);
+
+
             }
         });
     }

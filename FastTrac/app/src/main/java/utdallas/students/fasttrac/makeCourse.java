@@ -17,6 +17,7 @@ public class makeCourse extends AppCompatActivity {
 
         // make a course database instance
         CoursesDatabase cb = CoursesDatabase.getInstance(this);
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
 
         // get the professors info
         Professor professor = (Professor) getIntent().getSerializableExtra("Professor");
@@ -39,10 +40,17 @@ public class makeCourse extends AppCompatActivity {
                 String code = edit_code.getText().toString();
                 int hour = clock.getCurrentHour();
                 int minute = clock.getCurrentMinute();
-                cb.addCourse(new Course(id,name,code,hour,minute,professor.getFirst_name() + " " + professor.getLast_name()));
+                Course newCourse = new Course(id,name,code,hour,minute,professor.getFirst_name() + " " + professor.getLast_name());
+
+                // add the new course to the courses database so the students can see it
+                cb.addCourse(newCourse);
+
+                // add the course to the users database so that it can be associated with the professor
+                db.addCourse(professor.getUsername(), professor.getPasswrd(), newCourse);
 
                 // go bake to the professor page
                 Intent goBack = new Intent(getApplicationContext(), ProfessorPage.class);
+                goBack.putExtra("Professor", professor);
                 startActivity(goBack);
 
             }

@@ -54,10 +54,11 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addCourse(Course course){
+    public boolean addCourse(Course course){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
         values.put(KEY_ID, course.getId());
         values.put(KEY_NAME , course.getName());
         values.put(KEY_CODE, course.getCode());
@@ -65,8 +66,26 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         values.put(KEY_MINUTE, course.getMinute());
         values.put(KEY_INSTRUCTOR, course.getInstructor());
 
-        // if error then returns -1
-        long result = db.insert(TABLE_NAME, null, values);
+        // find all the courses the instructor is in
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[]{course.getInstructor()});
+
+        // means our course is already in the database
+        while(cursor.moveToNext()){
+
+            // if the instructor already has a class with the same credintials just a different casing the dont let them add it
+            if(cursor.getString(0).equalsIgnoreCase(course.getId()) &&
+               cursor.getString(1).equalsIgnoreCase(course.getName()) &&
+               cursor.getString(2).equalsIgnoreCase(course.getCode())){
+
+                // the instructor already has this course just with different casing
+                return false;
+            }
+        }
+
+        // if we didnt find the course then add it and return true
+        db.insert(TABLE_NAME, null, values);
+
+        return true;
     }
 
     public Course findCourse(String code) {

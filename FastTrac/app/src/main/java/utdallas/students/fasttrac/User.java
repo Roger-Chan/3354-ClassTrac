@@ -18,16 +18,26 @@ public class User implements Serializable {
     String last_name = null;
     String email = null;
     int authorization = 0;
+    int num_classes = 0;
 
     // make an array list of courses
     //ArrayList<Course> courses = new ArrayList<Course>(5);
 
     User(String user_name, String passwrd, String first_name, String last_name, String email){
-        this.user_name = user_name;
-        this.passwrd = passwrd;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
+        setUsername(user_name);
+        setPasswrd(passwrd);
+        setFirst_name(first_name);
+        setLast_name(last_name);
+        setEmail(email);
+    }
+
+
+    public void clone(User clowning){
+        setUsername(clowning.getUsername());
+        setPasswrd(clowning.getPasswrd());
+        setFirst_name(clowning.getFirst_name());
+        setLast_name(clowning.getLast_name());
+        setEmail(clowning.getEmail());
     }
 
     public void setUsername(String user_name){this.user_name = user_name;}
@@ -36,6 +46,7 @@ public class User implements Serializable {
     public void setLast_name(String last_name) {this.last_name = last_name;}
     public void setEmail(String email) {this.email = email;}
     public void setAuthorization(int authorization){this.authorization = authorization;}
+
     /*
     public int addCourse(Course course){
         // check if we are already in the course
@@ -67,5 +78,4 @@ public class User implements Serializable {
     public String getLast_name() {return last_name;}
     public String getEmail() {return email;}
     public int getAuthorization() {return authorization;}
-    //public ArrayList<Course> getCourse() {return courses;}
 }
