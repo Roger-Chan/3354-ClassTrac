@@ -101,8 +101,14 @@ public class StudentPage extends AppCompatActivity implements Serializable {
                     String LastUp = LastText.getText().toString();
                     String EmailUp = EmailText.getText().toString();
                     String PasswordUp = PasswordText.getText().toString();
-                    db.updateData(student.getUsername(), UserUp, PasswordUp, FirstUp, LastUp, EmailUp);
-                    Toast.makeText(StudentPage.this, "Successfully Updated", Toast.LENGTH_SHORT).show();
+                    boolean updated = db.updateData(student.getUsername(), UserUp, PasswordUp, FirstUp, LastUp, EmailUp);
+                    if (updated) {
+                        Toast.makeText(StudentPage.this, "Successfully Updated", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(StudentPage.this, "Username already taken", Toast.LENGTH_SHORT).show();
+                        UserText.setText(student.getUsername());
+                    }
 
                 }
             }

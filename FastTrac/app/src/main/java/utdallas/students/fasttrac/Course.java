@@ -8,7 +8,7 @@ public class Course {
     int minute = 0;
     String instructor = null;
     Student students = null;
-
+    int available = 0;
     public Course(){
         setId(null);
         setName(null);
@@ -37,6 +37,9 @@ public class Course {
     public void setCode(String code){this.code = code;}
     public void setTime(int hour, int minute){this.hour = hour; this.minute = minute;}
     public void setInstructor(String instructor){this.instructor = instructor;}
+    public void setAvailableOn(){available = 1;}
+    public void setAvailableOff(){available = 0;}
+    public boolean isAvailable(){return (available == 1);}
 
     public void clone(Course course){
         setId(course.getId());

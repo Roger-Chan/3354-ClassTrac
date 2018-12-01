@@ -128,8 +128,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
-    public int updateData(String UserBefore, String username, String pass, String firstname, String lastname, String email){
+    public boolean updateData(String UserBefore, String username, String pass, String firstname, String lastname, String email){
         SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE USERNAME = ?",new String[] {username});
+        if (cursor.moveToNext() && !UserBefore.equals(username))
+        {
+            return false;
+        }
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_USERNAME, username);
         contentValues.put(KEY_PASSWRD, pass);
@@ -137,12 +142,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_LASTNAME, lastname);
         contentValues.put(KEY_EMAIL, email);
 
-        return db.update(TABLE_NAME, contentValues, "USERNAME = ?", new String [] {UserBefore});
+        db.update(TABLE_NAME, contentValues, "USERNAME = ?", new String [] {UserBefore});
+        return true;
     }
 
     /*
     will improve update function in a little
      */
+
     public boolean addCourse(String username, String password, Course course){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE USERNAME = ? AND PASSWORD = ?",new String[] {username,password});
