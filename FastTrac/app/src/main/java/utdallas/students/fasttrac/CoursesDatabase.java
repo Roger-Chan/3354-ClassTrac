@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class CoursesDatabase extends SQLiteOpenHelper {
     private static CoursesDatabase cd = null;
 
-    public int ERROR = -1;
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "course_manager.db";
     public static final String TABLE_NAME = "COURSES";
@@ -35,6 +34,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         }
         return cd;
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + TABLE_NAME +
@@ -46,6 +46,10 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 KEY_INSTRUCTOR  +   " TEXT);"
                 ;
         db.execSQL(SQL_CREATE_USER_TABLE);
+    }
+
+    public void newClass(SQLiteDatabase db){
+     //   final String SQL_CREATE_USER_TABLE;
     }
 
     @Override

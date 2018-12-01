@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /*
@@ -22,7 +19,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //static global instance
     private static DatabaseHelper db = null;
 
-    public int ERROR = -1;
     public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "user_manager.db";
     public static final String TABLE_NAME = "USERS";
@@ -91,26 +87,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_AUTHORIZATION, user.getAuthorization());
 
-        /*
-        // see what courses they are already in
-        for(int i =0; i < user.getCourse().size(); i++){
-            values.put("CODE_COURSE_" + (i+1),user.getCourse().get(i).getCode());
-        }
-
-        // for all other courses enter null
-        for(int i =0; i < (5 - user.getCourse().size()); i++){
-            values.put("CODE_COURSE_" + (i + user.getCourse().size()), "NULL");
-        }
-       */
-
         values.put(CODE_COURSE_1, "NULL");
         values.put(CODE_COURSE_2, "NULL");
         values.put(CODE_COURSE_3, "NULL");
         values.put(CODE_COURSE_4, "NULL");
         values.put(CODE_COURSE_5, "NULL");
 
-        // if error then returns -1
-        long result = db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
     }
 
     public User validCredentials(String username, String passwrd){

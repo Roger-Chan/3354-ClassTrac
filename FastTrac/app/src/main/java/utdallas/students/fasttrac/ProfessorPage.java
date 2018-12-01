@@ -39,19 +39,6 @@ public class ProfessorPage extends AppCompatActivity {
         //ArrayList<String> my_class_list = new ArrayList<>();
         ArrayList<String> my_class_list = new ArrayList<>(cd.getProfessorCourses(professor.getFirst_name(), professor.getLast_name()));
 
-        /*
-        // 5 is the max number of classes the student can have
-        for(int i = 0; i < 5; i++){
-            // add the courses they are already in to our arraylist
-            if(professor_current_codes.get(i).contains("NULL")) {
-                // DO NOTHING
-            }   else{
-                // ADD TO THE LIST
-                my_class_list.add(cd.findCourse(professor_current_codes.get(i)).getName());
-            }
-        }
-        */
-
         //Define an Adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, my_class_list);
 
@@ -66,8 +53,6 @@ public class ProfessorPage extends AppCompatActivity {
                 Intent CreateCourse = new Intent(getApplicationContext(), makeCourse.class);
                 CreateCourse.putExtra("Professor", professor);
                 startActivity(CreateCourse);
-
-
             }
         });
     }

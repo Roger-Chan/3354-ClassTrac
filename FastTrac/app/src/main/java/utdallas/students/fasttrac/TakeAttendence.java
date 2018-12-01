@@ -3,12 +3,10 @@ package utdallas.students.fasttrac;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,8 +15,6 @@ public class TakeAttendence extends AppCompatActivity {
     DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int ERROR = -1;
-        int SUCCESS = 1;
 
         // make the course database
         cd = CoursesDatabase.getInstance(this);
