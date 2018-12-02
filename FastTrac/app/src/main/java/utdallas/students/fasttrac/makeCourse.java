@@ -45,8 +45,12 @@ public class makeCourse extends AppCompatActivity {
                 // add the new course to the courses database so the students can see it
                 cb.addCourse(newCourse);
 
+                // adds corresponding attendance sheet for course
+                cb.newClassTable(newCourse);
+
                 // add the course to the users database so that it can be associated with the professor
                 db.addCourse(professor.getUsername(), professor.getPasswrd(), newCourse);
+
 
                 // go bake to the professor page
                 Intent goBack = new Intent(getApplicationContext(), ProfessorPage.class);

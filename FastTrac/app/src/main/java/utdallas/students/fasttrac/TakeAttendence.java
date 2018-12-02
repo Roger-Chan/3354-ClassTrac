@@ -45,9 +45,7 @@ public class TakeAttendence extends AppCompatActivity {
         // 5 is the max number of classes the student can have
         for(int i = 0; i < 5; i++){
             // add the courses they are already in to our arraylist
-            if(students_current_codes.get(i).contains("NULL")) {
-                // DO NOTHING
-            }   else{
+            if(!students_current_codes.get(i).contains("NULL")) {
                 // ADD TO THE LIST
                 my_class_list.add(cd.findCourse(students_current_codes.get(i)).getName());
             }
@@ -117,5 +115,7 @@ public class TakeAttendence extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 }

@@ -55,7 +55,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     //Creates a table to log attendance for each class
     String KEY_STUDENT_FIRST_NAME = "First_Name";
     String KEY_STUDENT_LAST_NAME = "Last_Name";
-    public void newClassTable(SQLiteDatabase cd, Course course){
+    public void newClassTable(Course course){
+        SQLiteDatabase cd = this.getWritableDatabase();
         String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
 
         final String SQL_CREATE_CLASS_TABLE = "CREATE TABLE " + CLASS_TABLE_NAME + "(" +
@@ -63,28 +64,46 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 KEY_STUDENT_LAST_NAME      +   " STRING NOT NULL);";   // column 1
         cd.execSQL(SQL_CREATE_CLASS_TABLE);
     }
-/*
-    //takes the attendance of a student in course table. If the student does not exist in the course table, the student is then added.
-    public boolean attendStudentInCourse(Student student, Course course){
-        SQLiteDatabase cd = this.getWritableDatabase();
 
+    //****NEEDS TESTING ****
+    //takes the attendance of a student in course table. If the student does not exist in the course table, the student is then added.
+    public boolean attendStudentInCourse(Student student, Course course) {
+        SQLiteDatabase cd = this.getWritableDatabase();
+        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
         //if professor has not turned on the course yet exit
-        if (!course.isAvailable())
-        {
+        if (!course.isAvailable()) {
             return false;
         }
-        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
-        Cursor cursor = cd.rawQuery("SELECT * FROM " + CLASS_TABLE_NAME + " WHERE First_Name = ? AND  Last_Name = ?", new String []{student.getFirst_name(), student.getLast_name()});
+        //if student has never attended course before, add their row
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[]{course.getInstructor()});
+        if (!cursor.moveToNext())
+        {
+            ContentValues studentvalues = new ContentValues();
+            studentvalues.put(KEY_STUDENT_FIRST_NAME, student.getFirst_name());
+            studentvalues.put(KEY_STUDENT_LAST_NAME, student.getLast_name());
+            cd.insert(CLASS_TABLE_NAME, null, studentvalues);
+        }
+        //otherwise, tick their attendance on the current date
+        else
+        {
+            //dummy for current day in numerical format, e.g. 8/12/18
+            String currentDate = "current date";
 
-        if (!cursor.moveToNext();
-
-
-
-
+            ContentValues datevalue = new ContentValues();
+            datevalue.put(currentDate, 1);
+            cd.update(CLASS_TABLE_NAME, datevalue, "KEY_STUDENT_FIRST_NAME = ? AND KEY_STUDENT_LAST_NAME = ?", new String [] {student.getFirst_name(), student.getLast_name()});
         }
         return true;
     }
-*/
+
+    public boolean makeSession(Course course)
+    {
+        SQLiteDatabase cd = this.getWritableDatabase();
+        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
+        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + /*current date in 8/12/18 format + */ " INT DEFAULT 0;");
+        return true;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + COURSES_TABLE_NAME);

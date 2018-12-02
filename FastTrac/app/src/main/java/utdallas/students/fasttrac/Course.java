@@ -9,6 +9,7 @@ public class Course {
     String instructor = null;
     Student students = null;
     int available = 0;
+
     public Course(){
         setId(null);
         setName(null);
