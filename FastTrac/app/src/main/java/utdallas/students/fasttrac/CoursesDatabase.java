@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-import static utdallas.students.fasttrac.DatabaseHelper.TABLE_NAME;
+
 
 public class CoursesDatabase extends SQLiteOpenHelper {
     private static CoursesDatabase cd = null;
@@ -55,14 +58,27 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     //Creates a table to log attendance for each class
     String KEY_STUDENT_FIRST_NAME = "First_Name";
     String KEY_STUDENT_LAST_NAME = "Last_Name";
+
     public void newClassTable(Course course){
         SQLiteDatabase cd = this.getWritableDatabase();
         String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
 
-        final String SQL_CREATE_CLASS_TABLE = "CREATE TABLE " + CLASS_TABLE_NAME + "(" +
+        final String SQL_CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS " + CLASS_TABLE_NAME + "(" +
                 KEY_STUDENT_FIRST_NAME     +   " STRING NOT NULL, " +  // column 0
                 KEY_STUDENT_LAST_NAME      +   " STRING NOT NULL);";   // column 1
         cd.execSQL(SQL_CREATE_CLASS_TABLE);
+    }
+
+    public boolean addSession(Course course)
+    {
+        SQLiteDatabase cd = this.getWritableDatabase();
+        //current dat in numerical format, e.g. 8-12-18
+        DateFormat df = new SimpleDateFormat("MM-DD-YY");
+        String date = df.format(Calendar.getInstance().getTime());
+
+        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
+        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + date + " INT DEFAULT 0;");
+        return true;
     }
 
     //****NEEDS TESTING ****
@@ -70,10 +86,12 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public boolean attendStudentInCourse(Student student, Course course) {
         SQLiteDatabase cd = this.getWritableDatabase();
         String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
+
         //if professor has not turned on the course yet exit
         if (!course.isAvailable()) {
             return false;
         }
+
         //if student has never attended course before, add their row
         Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[]{course.getInstructor()});
         if (!cursor.moveToNext())
@@ -83,26 +101,23 @@ public class CoursesDatabase extends SQLiteOpenHelper {
             studentvalues.put(KEY_STUDENT_LAST_NAME, student.getLast_name());
             cd.insert(CLASS_TABLE_NAME, null, studentvalues);
         }
+
         //otherwise, tick their attendance on the current date
         else
         {
-            //dummy for current day in numerical format, e.g. 8/12/18
-            String currentDate = "current date";
+            //current day in numerical format, e.g. 8-12-18
+            DateFormat df = new SimpleDateFormat("MM-DD-YY");
+            String date = df.format(Calendar.getInstance().getTime());
 
+            //updates that date value
             ContentValues datevalue = new ContentValues();
-            datevalue.put(currentDate, 1);
+            datevalue.put(date, 1);
             cd.update(CLASS_TABLE_NAME, datevalue, "KEY_STUDENT_FIRST_NAME = ? AND KEY_STUDENT_LAST_NAME = ?", new String [] {student.getFirst_name(), student.getLast_name()});
         }
         return true;
     }
 
-    public boolean makeSession(Course course)
-    {
-        SQLiteDatabase cd = this.getWritableDatabase();
-        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
-        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + /*current date in 8/12/18 format + */ " INT DEFAULT 0;");
-        return true;
-    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
