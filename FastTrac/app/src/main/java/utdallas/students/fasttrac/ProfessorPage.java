@@ -29,13 +29,13 @@ public class ProfessorPage extends AppCompatActivity {
         Button edit_course_btn = (Button) findViewById(R.id.edit_course_btn);
         ListView list = (ListView)findViewById(R.id.mylistview);
         TextView course_prompt = (TextView) findViewById(R.id.course_prompt);
-        Professor professor = (Professor) getIntent().getSerializableExtra("Professor");
+        User professor = (User) getIntent().getSerializableExtra("Professor");
 
         // set the prompt
         String prompt = course_prompt.getText().toString();
         course_prompt.setText(professor.getFirst_name() + " " + prompt);
 
-        //defind array values to show into Listview
+        //define array values to show into list view
         //ArrayList<String> my_class_list = new ArrayList<>();
         ArrayList<String> my_class_list = new ArrayList<>(cd.getProfessorCourses(professor.getFirst_name(), professor.getLast_name()));
 
@@ -45,6 +45,15 @@ public class ProfessorPage extends AppCompatActivity {
         //Define parameters for the Adapter, a)Context , b) layout for the rows of list
         // c) ID for TextView to which data is written, d) array of data
         list.setAdapter(adapter);
+
+        //testing
+        Course samplecourse = cd.findCourse("12345");
+        cd.newClassTable(samplecourse);
+        cd.addSession(samplecourse);
+        User samplestudent = db.validCredentials("username", "password");
+        samplecourse.setAvailableOn();
+        cd.attendStudentInCourse(samplestudent, samplecourse);
+
 
         add_course_btn.setOnClickListener(new View.OnClickListener() {
             @Override

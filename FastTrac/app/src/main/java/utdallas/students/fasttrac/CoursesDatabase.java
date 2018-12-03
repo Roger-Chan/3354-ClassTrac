@@ -5,11 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 
@@ -26,12 +22,13 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public static final String KEY_MINUTE = "COURSE_MINUTE";          //column index 4
     public static final String KEY_INSTRUCTOR = "COURSE_INSTRUCTOR";  //column index 5
     public static final String IS_ON = "IS_ON";                       //column index 6
+    public static final String LATEST_TIME = "LATEST_TIME";           //column index 7
 
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addCourse(new Course("SE 3354", "Software Engineering", "12345", 10, 30, "Dr. WEI"));
-        addCourse(new Course("CE 2337", "CompSci 2", "13346", 11, 0, "jason smith"));
+        addCourse(new Course("SE_3354", "Software_Engineering", "12345", 10, 30, "Dr. WEI"));
+        addCourse(new Course("CE_2337", "CompSci_2", "13346", 11, 0, "jason smith"));
     }
 
     public static CoursesDatabase getInstance(Context context){
@@ -50,7 +47,9 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 KEY_HOUR        +   " INT, "            +   // column 3
                 KEY_MINUTE      +   " INT, "            +   // column 4
                 KEY_INSTRUCTOR  +   " TEXT,"            +   // column 5
-                IS_ON           +   "INT DEFAULT 0);";      // column 6
+                IS_ON           +   "INT DEFAULT 0,"    +   // column 6
+                LATEST_TIME     +   "String);";             // column 7
+
 
         cd.execSQL(SQL_CREATE_USER_TABLE);
     }
@@ -61,31 +60,28 @@ public class CoursesDatabase extends SQLiteOpenHelper {
 
     public void newClassTable(Course course){
         SQLiteDatabase cd = this.getWritableDatabase();
-        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
+        String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
 
         final String SQL_CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS " + CLASS_TABLE_NAME + "(" +
-                KEY_STUDENT_FIRST_NAME     +   " STRING NOT NULL, " +  // column 0
-                KEY_STUDENT_LAST_NAME      +   " STRING NOT NULL);";   // column 1
+                KEY_STUDENT_FIRST_NAME     +   " STRING, " +  // column 0
+                KEY_STUDENT_LAST_NAME      +   " STRING);";   // column 1
         cd.execSQL(SQL_CREATE_CLASS_TABLE);
     }
 
     public boolean addSession(Course course)
     {
         SQLiteDatabase cd = this.getWritableDatabase();
-        //current dat in numerical format, e.g. 8-12-18
-        DateFormat df = new SimpleDateFormat("MM-DD-YY");
-        String date = df.format(Calendar.getInstance().getTime());
-
-        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
-        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + date + " INT DEFAULT 0;");
+        //current date in numerical format, e.g. 08/12/18
+        String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
+        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + "'" + course.getLatestTime() + "'" + " INT;");
         return true;
     }
 
     //****NEEDS TESTING ****
     //takes the attendance of a student in course table. If the student does not exist in the course table, the student is then added.
-    public boolean attendStudentInCourse(Student student, Course course) {
+    public boolean attendStudentInCourse(User student, Course course) {
         SQLiteDatabase cd = this.getWritableDatabase();
-        String CLASS_TABLE_NAME = course.getId() + "-" + course.getName() + "-" + course.getHour() + ":" + course.getMinute();
+        String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
 
         //if professor has not turned on the course yet exit
         if (!course.isAvailable()) {
@@ -93,7 +89,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         }
 
         //if student has never attended course before, add their row
-        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[]{course.getInstructor()});
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + CLASS_TABLE_NAME + " WHERE First_Name = ? AND Last_Name = ? ",
+                                                                new String[]{student.getFirst_name(),student.getLast_name()});
         if (!cursor.moveToNext())
         {
             ContentValues studentvalues = new ContentValues();
@@ -101,19 +98,10 @@ public class CoursesDatabase extends SQLiteOpenHelper {
             studentvalues.put(KEY_STUDENT_LAST_NAME, student.getLast_name());
             cd.insert(CLASS_TABLE_NAME, null, studentvalues);
         }
-
-        //otherwise, tick their attendance on the current date
-        else
-        {
-            //current day in numerical format, e.g. 8-12-18
-            DateFormat df = new SimpleDateFormat("MM-DD-YY");
-            String date = df.format(Calendar.getInstance().getTime());
-
-            //updates that date value
-            ContentValues datevalue = new ContentValues();
-            datevalue.put(date, 1);
-            cd.update(CLASS_TABLE_NAME, datevalue, "KEY_STUDENT_FIRST_NAME = ? AND KEY_STUDENT_LAST_NAME = ?", new String [] {student.getFirst_name(), student.getLast_name()});
-        }
+        //otherwise, just tick their attendance on the current date
+        ContentValues datevalue = new ContentValues();
+        datevalue.put("'" + course.getLatestTime() + "'", 1);
+        cd.update(CLASS_TABLE_NAME, datevalue, KEY_STUDENT_FIRST_NAME+" = ? AND " + KEY_STUDENT_LAST_NAME+" = ?", new String [] {student.getFirst_name(), student.getLast_name()});
         return true;
     }
 
@@ -159,6 +147,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         return true;
     }
 
+    //returns course object from Courses table
     public Course findCourse(String code) {
         SQLiteDatabase cd = this.getWritableDatabase();
 

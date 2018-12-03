@@ -1,5 +1,9 @@
 package utdallas.students.fasttrac;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Course {
     String id = null;
     String name = null;
@@ -7,8 +11,8 @@ public class Course {
     int hour = 0;
     int minute = 0;
     String instructor = null;
-    Student students = null;
-    int available = 0;
+    boolean available = false;
+    String latest_time = null;
 
     public Course(){
         setId(null);
@@ -24,6 +28,7 @@ public class Course {
         setCode(code);
         setTime(hour,minute);
         setInstructor(instructor);
+        setLatestTimeAuto();
     }
 
     public String getId(){return id;}
@@ -32,15 +37,24 @@ public class Course {
     public int getHour() {return hour;}
     public int getMinute() {return minute;}
     public String getInstructor(){return instructor;}
+    public String getLatestTime(){return latest_time;}
 
     public void setId(String id){this.id = id;}
     public void setName(String name){this.name = name;}
     public void setCode(String code){this.code = code;}
     public void setTime(int hour, int minute){this.hour = hour; this.minute = minute;}
     public void setInstructor(String instructor){this.instructor = instructor;}
-    public void setAvailableOn(){available = 1;}
-    public void setAvailableOff(){available = 0;}
-    public boolean isAvailable(){return (available == 1);}
+    public void setAvailableOn(){available = true;}
+    public void setAvailableOff(){available = false;}
+    public boolean isAvailable(){return (available);}
+
+    public void setLatestTime(String time){
+        latest_time = time;
+    }
+    public void setLatestTimeAuto(){
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        latest_time = df.format(Calendar.getInstance().getTime());
+    }
 
     public void clone(Course course){
         setId(course.getId());
@@ -48,5 +62,6 @@ public class Course {
         setCode(course.getCode());
         setTime(course.getHour(), course.getMinute());
         setInstructor(course.getInstructor());
+        setLatestTime(course.getLatestTime());
     }
 }

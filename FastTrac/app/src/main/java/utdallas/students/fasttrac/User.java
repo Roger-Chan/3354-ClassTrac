@@ -23,12 +23,13 @@ public class User implements Serializable {
     // make an array list of courses
     //ArrayList<Course> courses = new ArrayList<Course>(5);
 
-    User(String user_name, String passwrd, String first_name, String last_name, String email){
+    User(String user_name, String passwrd, String first_name, String last_name, String email, int authorization){
         setUsername(user_name);
         setPasswrd(passwrd);
         setFirst_name(first_name);
         setLast_name(last_name);
         setEmail(email);
+        setAuthorization(authorization);
     }
 
 

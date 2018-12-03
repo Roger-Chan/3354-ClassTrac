@@ -39,12 +39,12 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent homeactivity;
                 if (isProfessor)
                 {
-                    db.addUser(new Professor(username, password, firstname, lastname, email));
+                    db.addUser(new User(username, password, firstname, lastname, email, 1));
                     Toast.makeText(RegisterActivity.this, "Successfully added professor " + username + "!", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    db.addUser(new Student(username, password, firstname, lastname, email));
+                    db.addUser(new User(username, password, firstname, lastname, email, 0));
                     Toast.makeText(RegisterActivity.this, "Successfully added student " + username + "!", Toast.LENGTH_SHORT).show();
                 }
                 homeactivity = new Intent(getApplicationContext(), LoginActivity.class);

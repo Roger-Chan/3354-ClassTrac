@@ -22,7 +22,7 @@ public class StudentPage extends AppCompatActivity implements Serializable {
         db = DatabaseHelper.getInstance(this);
 
         // get the info of the student who is accessing this page
-        Student student = (Student) getIntent().getSerializableExtra("Student");
+        User student = (User) getIntent().getSerializableExtra("Student");
 
         Button takeAttendancebtn = (Button) findViewById(R.id.Take_Attendence_btn);
         Button editInfobtn = (Button) findViewById(R.id.edit_info_btn);
