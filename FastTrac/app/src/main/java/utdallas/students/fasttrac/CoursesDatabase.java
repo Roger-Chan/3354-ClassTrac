@@ -72,7 +72,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     {
         SQLiteDatabase cd = this.getWritableDatabase();
         //current date in numerical format, e.g. 08/12/18
-        DateFormat df = new SimpleDateFormat("dd/MM/yy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         String date = df.format(Calendar.getInstance().getTime());
         String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
 
@@ -110,7 +110,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         else
         {
             //current day in numerical format, e.g. 08/12/18
-            DateFormat df = new SimpleDateFormat("MM/DD/YY");
+            DateFormat df = new SimpleDateFormat("MM/DD/YY HH:mm:ss");
             String date = df.format(Calendar.getInstance().getTime());
 
             //updates that date value
