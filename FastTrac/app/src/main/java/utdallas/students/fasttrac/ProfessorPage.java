@@ -46,6 +46,12 @@ public class ProfessorPage extends AppCompatActivity {
         // c) ID for TextView to which data is written, d) array of data
         list.setAdapter(adapter);
 
+        //testing
+        Course samplecourse = cd.findCourse("12345");
+        cd.newClassTable(samplecourse);
+        cd.addSession(samplecourse);
+
+
         add_course_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
