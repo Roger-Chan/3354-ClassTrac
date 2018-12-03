@@ -51,7 +51,8 @@ public class ProfessorPage extends AppCompatActivity {
         cd.newClassTable(samplecourse);
         cd.addSession(samplecourse);
         User samplestudent = db.validCredentials("username", "password");
-        //cd.
+        samplecourse.setAvailableOn();
+        cd.attendStudentInCourse(samplestudent, samplecourse);
 
 
         add_course_btn.setOnClickListener(new View.OnClickListener() {

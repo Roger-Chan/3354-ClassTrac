@@ -89,7 +89,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         }
 
         //if student has never attended course before, add their row
-        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[]{course.getInstructor()});
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + CLASS_TABLE_NAME + " WHERE First_Name = ? AND Last_Name = ? ",
+                                                                new String[]{student.getFirst_name(),student.getLast_name()});
         if (!cursor.moveToNext())
         {
             ContentValues studentvalues = new ContentValues();
@@ -97,15 +98,10 @@ public class CoursesDatabase extends SQLiteOpenHelper {
             studentvalues.put(KEY_STUDENT_LAST_NAME, student.getLast_name());
             cd.insert(CLASS_TABLE_NAME, null, studentvalues);
         }
-
-        //otherwise, tick their attendance on the current date
-        else
-        {
-            //updates that date value
-            ContentValues datevalue = new ContentValues();
-            datevalue.put("'" + course.getLatestTime() + "'", 1);
-            cd.update(CLASS_TABLE_NAME, datevalue, "KEY_STUDENT_FIRST_NAME = ? AND KEY_STUDENT_LAST_NAME = ?", new String [] {student.getFirst_name(), student.getLast_name()});
-        }
+        //otherwise, just tick their attendance on the current date
+        ContentValues datevalue = new ContentValues();
+        datevalue.put("'" + course.getLatestTime() + "'", 1);
+        cd.update(CLASS_TABLE_NAME, datevalue, KEY_STUDENT_FIRST_NAME+" = ? AND " + KEY_STUDENT_LAST_NAME+" = ?", new String [] {student.getFirst_name(), student.getLast_name()});
         return true;
     }
 

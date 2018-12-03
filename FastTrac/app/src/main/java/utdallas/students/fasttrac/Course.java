@@ -11,7 +11,7 @@ public class Course {
     int hour = 0;
     int minute = 0;
     String instructor = null;
-    int available = 0;
+    boolean available = false;
     String latest_time = null;
 
     public Course(){
@@ -44,9 +44,9 @@ public class Course {
     public void setCode(String code){this.code = code;}
     public void setTime(int hour, int minute){this.hour = hour; this.minute = minute;}
     public void setInstructor(String instructor){this.instructor = instructor;}
-    public void setAvailableOn(){available = 1;}
-    public void setAvailableOff(){available = 0;}
-    public boolean isAvailable(){return (available == 1);}
+    public void setAvailableOn(){available = true;}
+    public void setAvailableOff(){available = false;}
+    public boolean isAvailable(){return (available);}
 
     public void setLatestTime(String time){
         latest_time = time;
