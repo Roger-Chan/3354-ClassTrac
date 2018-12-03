@@ -49,7 +49,6 @@ public class ProfessorPage extends AppCompatActivity {
         //testing
         Course samplecourse = cd.findCourse("12345");
         cd.newClassTable(samplecourse);
-
         cd.addSession(samplecourse);
 
 

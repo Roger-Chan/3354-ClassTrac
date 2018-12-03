@@ -25,6 +25,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public static final String KEY_MINUTE = "COURSE_MINUTE";          //column index 4
     public static final String KEY_INSTRUCTOR = "COURSE_INSTRUCTOR";  //column index 5
     public static final String IS_ON = "IS_ON";                       //column index 6
+    public static final String LATEST_TIME = "LATEST_TIME";           //column index 7
 
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,7 +50,9 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 KEY_HOUR        +   " INT, "            +   // column 3
                 KEY_MINUTE      +   " INT, "            +   // column 4
                 KEY_INSTRUCTOR  +   " TEXT,"            +   // column 5
-                IS_ON           +   "INT DEFAULT 0);";      // column 6
+                IS_ON           +   "INT DEFAULT 0,"    +   // column 6
+                LATEST_TIME     +   "String);";             // column 7
+
 
         cd.execSQL(SQL_CREATE_USER_TABLE);
     }
@@ -72,16 +75,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     {
         SQLiteDatabase cd = this.getWritableDatabase();
         //current date in numerical format, e.g. 08/12/18
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        String date = df.format(Calendar.getInstance().getTime());
         String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
-
-        //search and see of column already exists
-
-
-
-
-        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + "'" + date + "'" + " INT;");
+        cd.execSQL("ALTER TABLE " + CLASS_TABLE_NAME + " ADD COLUMN " + "'" + course.getLatestTime() + "'" + " INT;");
         return true;
     }
 
@@ -109,13 +104,9 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         //otherwise, tick their attendance on the current date
         else
         {
-            //current day in numerical format, e.g. 08/12/18
-            DateFormat df = new SimpleDateFormat("MM/DD/YY HH:mm:ss");
-            String date = df.format(Calendar.getInstance().getTime());
-
             //updates that date value
             ContentValues datevalue = new ContentValues();
-            datevalue.put("'" + date + "'", 1);
+            datevalue.put("'" + course.getLatestTime() + "'", 1);
             cd.update(CLASS_TABLE_NAME, datevalue, "KEY_STUDENT_FIRST_NAME = ? AND KEY_STUDENT_LAST_NAME = ?", new String [] {student.getFirst_name(), student.getLast_name()});
         }
         return true;

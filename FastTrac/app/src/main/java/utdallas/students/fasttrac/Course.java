@@ -1,5 +1,9 @@
 package utdallas.students.fasttrac;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Course {
     String id = null;
     String name = null;
@@ -9,6 +13,7 @@ public class Course {
     String instructor = null;
     Student students = null;
     int available = 0;
+    String latest_time = null;
 
     public Course(){
         setId(null);
@@ -24,6 +29,7 @@ public class Course {
         setCode(code);
         setTime(hour,minute);
         setInstructor(instructor);
+        setLatestTimeAuto();
     }
 
     public String getId(){return id;}
@@ -32,6 +38,7 @@ public class Course {
     public int getHour() {return hour;}
     public int getMinute() {return minute;}
     public String getInstructor(){return instructor;}
+    public String getLatestTime(){return latest_time;}
 
     public void setId(String id){this.id = id;}
     public void setName(String name){this.name = name;}
@@ -42,11 +49,20 @@ public class Course {
     public void setAvailableOff(){available = 0;}
     public boolean isAvailable(){return (available == 1);}
 
+    public void setLatestTime(String time){
+        latest_time = time;
+    }
+    public void setLatestTimeAuto(){
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        latest_time = df.format(Calendar.getInstance().getTime());
+    }
+
     public void clone(Course course){
         setId(course.getId());
         setName(course.getName());
         setCode(course.getCode());
         setTime(course.getHour(), course.getMinute());
         setInstructor(course.getInstructor());
+        setLatestTime(course.getLatestTime());
     }
 }
