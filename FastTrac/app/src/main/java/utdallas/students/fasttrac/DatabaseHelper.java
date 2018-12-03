@@ -39,9 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addUser(new Student("username","password","matthew","hicks", "mgh160030@utdallas.edu"));
-        addUser(new Student("mgh160031", "pass", "kevin", "smith", "smith1@utdallas.edu"));
-        addUser(new Professor("professor1", "password", "jason", "smith", "jason.smith@utdallas.edu"));
+        //students
+        addUser(new User("username","password","matthew","hicks", "mgh160030@utdallas.edu", 0));
+        addUser(new User("mgh160031", "pass", "kevin", "smith", "smith1@utdallas.edu", 0));
+        //professors
+        addUser(new User("professor1", "password", "jason", "smith", "jason.smith@utdallas.edu", 1));
     }
 
     public static DatabaseHelper getInstance(Context context){
@@ -111,13 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String mail = cursor.getString(4);
                 int auth = cursor.getInt(5);;
 
-                if(auth == 0){
-                    // its a student
-                    return new Student(uname, passw, fname, lname, mail);
-                }   else{
-                    // its a professor
-                    return new Professor(uname, passw, fname, lname, mail);
-                }
+                return new User(uname, passw, fname, lname, mail, auth);
             }
         }
         return null;

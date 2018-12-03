@@ -20,7 +20,7 @@ public class makeCourse extends AppCompatActivity {
         DatabaseHelper db = DatabaseHelper.getInstance(this);
 
         // get the professors info
-        Professor professor = (Professor) getIntent().getSerializableExtra("Professor");
+        User professor = (User) getIntent().getSerializableExtra("Professor");
 
         // make objects of the EditTexts
         EditText edit_code = (EditText) findViewById(R.id.code_edit);

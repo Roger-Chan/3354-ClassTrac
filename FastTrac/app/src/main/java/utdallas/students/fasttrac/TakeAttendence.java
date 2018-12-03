@@ -21,7 +21,7 @@ public class TakeAttendence extends AppCompatActivity {
         db = DatabaseHelper.getInstance(this);
 
         // get the student object
-        Student student = (Student) getIntent().getSerializableExtra("Student");
+        User student = (User) getIntent().getSerializableExtra("Student");
 
         // add a fake course for the student to test
         Course fake = cd.findCourse("13346");

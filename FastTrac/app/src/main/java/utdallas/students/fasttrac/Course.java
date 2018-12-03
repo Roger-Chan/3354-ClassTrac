@@ -11,7 +11,6 @@ public class Course {
     int hour = 0;
     int minute = 0;
     String instructor = null;
-    Student students = null;
     int available = 0;
     String latest_time = null;
 

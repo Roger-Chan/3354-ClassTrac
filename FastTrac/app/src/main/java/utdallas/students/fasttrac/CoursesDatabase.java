@@ -5,10 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 
@@ -82,7 +79,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
 
     //****NEEDS TESTING ****
     //takes the attendance of a student in course table. If the student does not exist in the course table, the student is then added.
-    public boolean attendStudentInCourse(Student student, Course course) {
+    public boolean attendStudentInCourse(User student, Course course) {
         SQLiteDatabase cd = this.getWritableDatabase();
         String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
 
