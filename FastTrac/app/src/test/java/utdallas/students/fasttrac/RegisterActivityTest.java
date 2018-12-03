@@ -1,5 +1,6 @@
 package utdallas.students.fasttrac;
 
+import android.app.assist.AssistStructure;
 import android.view.View;
 
 import org.junit.Before;
@@ -25,6 +26,6 @@ public class RegisterActivityTest {
 
         View result = uRegisterActivity.findViewById(R.id.swverification);
 
-        assertEquals("Professor", true, result);
+        assertEquals("Professor", 1, result);
     }
 }
