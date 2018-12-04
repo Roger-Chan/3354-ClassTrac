@@ -40,7 +40,7 @@ public class makeCourse extends AppCompatActivity {
                 String code = edit_code.getText().toString();
                 int hour = clock.getCurrentHour();
                 int minute = clock.getCurrentMinute();
-                Course newCourse = new Course(id,name,code,hour,minute,professor.getFirst_name() + " " + professor.getLast_name());
+                Course newCourse = new Course(id,name,code,hour,minute,professor.getFirst_name() + " " + professor.getLast_name(), 0);
 
                 // add the new course to the courses database so the students can see it
                 cb.addCourse(newCourse);

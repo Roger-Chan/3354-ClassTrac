@@ -63,18 +63,30 @@ public class ProfessorPage extends AppCompatActivity {
 
                 if (clickedcourse.isAvailable())
                 {
-                    cd.addSession(clickedcourse);
                     //sets availability to 0
                     cd.toggleClass(my_codes_list.get(position), 0);
-                    Toast.makeText(ProfessorPage.this, "class is closed", Toast.LENGTH_SHORT).show();
+                    Course ncourse = cd.findCourse(my_codes_list.get(position));
+                    boolean ncoursec = ncourse.isAvailable();
+                    int j;
+                    if (ncoursec)
+                    {
+                        j =1;
+                    }
+                    else
+                    {
+                        j = 0;
+                    }
+                    Toast.makeText(ProfessorPage.this, "class is closed availability is now " + j, Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    //creates new session
-                    cd.addSession(clickedcourse);
-                    //with current time
+                    //updates to current time
                     clickedcourse.setLatestTimeAuto();
                     cd.updateTime(my_codes_list.get(position), clickedcourse.getLatestTime());
+
+                    //creates new session
+                    cd.addSession(clickedcourse);
+
                     //sets availability to 1
                     cd.toggleClass(my_codes_list.get(position), 1);
                     Course ncourse = cd.findCourse(my_codes_list.get(position));
@@ -88,7 +100,7 @@ public class ProfessorPage extends AppCompatActivity {
                     {
                         j = 0;
                     }
-                    Toast.makeText(ProfessorPage.this, "class is open" + j, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfessorPage.this, "class is open availability is now " + j, Toast.LENGTH_SHORT).show();
                 }
             }
         });

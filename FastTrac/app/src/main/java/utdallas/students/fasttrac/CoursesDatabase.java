@@ -27,8 +27,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addCourse(new Course("SE_3354", "Software_Engineering", "12345", 10, 30, "Dr. WEI"));
-        addCourse(new Course("CE_2337", "CompSci_2", "13346", 11, 0, "jason smith"));
+        addCourse(new Course("SE_3354", "Software_Engineering", "12345", 10, 30, "Dr. WEI", 0));
+        addCourse(new Course("CE_2337", "CompSci_2", "13346", 11, 0, "jason smith", 0));
     }
 
     public static CoursesDatabase getInstance(Context context){
@@ -62,7 +62,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         SQLiteDatabase cd = this.getWritableDatabase();
         String CLASS_TABLE_NAME = course.getId() + "_" + course.getName() + "_" + course.getHour() + course.getMinute();//needs refactoring
 
-        final String SQL_CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS " + CLASS_TABLE_NAME + "(" +
+        final String SQL_CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS " + "'" + CLASS_TABLE_NAME + "'" +  "(" +
                 KEY_STUDENT_FIRST_NAME     +   " STRING, " +  // column 0
                 KEY_STUDENT_LAST_NAME      +   " STRING);";   // column 1
         cd.execSQL(SQL_CREATE_CLASS_TABLE);
@@ -162,8 +162,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 int hour = cursor.getInt(3);
                 int minute = cursor.getInt(4);
                 String instructor = cursor.getString(5);
-
-                return new Course(id, name, code, hour, minute, instructor);
+                int ison = cursor.getInt(6);
+                return new Course(id, name, code, hour, minute, instructor, ison);
             }
         }
 
