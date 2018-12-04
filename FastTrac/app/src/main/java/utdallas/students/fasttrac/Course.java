@@ -22,14 +22,14 @@ public class Course {
         setInstructor(null);
     }
 
-    public Course(String id, String name, String code, int hour, int minute, String instructor, int ison){
+    public Course(String id, String name, String code, int hour, int minute, String instructor, int ison, String time){
         setId(id);
         setName(name);
         setCode(code);
         setTime(hour,minute);
         setInstructor(instructor);
-        setLatestTimeAuto();
         setAvailable(ison);
+        setLatestTime(time);
     }
 
     public String getId(){return id;}

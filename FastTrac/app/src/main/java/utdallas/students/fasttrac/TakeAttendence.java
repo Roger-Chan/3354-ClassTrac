@@ -3,10 +3,12 @@ package utdallas.students.fasttrac;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -58,6 +60,24 @@ public class TakeAttendence extends AppCompatActivity {
         //Define parameters for the Adapter, a)Context , b) layout for the rows of list
         // c) ID for TextView to which data is written, d) array of data
         list.setAdapter(adapter);
+        //get courses information for the student
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Course clickedcourse = cd.findCourse(students_current_codes.get(position));
+
+                if (clickedcourse.isAvailable())
+                {
+                    cd.attendStudentInCourse(student, clickedcourse);
+                    Toast.makeText(TakeAttendence.this, "Attended " + clickedcourse.getId(), Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    //updates to current time
+                    Toast.makeText(TakeAttendence.this, clickedcourse.getId() + " is not open ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         addCoursebtn.setOnClickListener(new View.OnClickListener() {
             @Override

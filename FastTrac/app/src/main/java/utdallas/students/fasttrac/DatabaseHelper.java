@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
         //students
-        addUser(new User("username","password","matthew","hicks", "mgh160030@utdallas.edu", 0));
+        addUser(new User("username","password","matthew","hicks", "mgh160030@utdallas.edu", 0 ));
         addUser(new User("mgh160031", "pass", "kevin", "smith", "smith1@utdallas.edu", 0));
         //professors
         addUser(new User("professor1", "password", "jason", "smith", "jason.smith@utdallas.edu", 1));

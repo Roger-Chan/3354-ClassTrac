@@ -27,8 +27,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         deleteAll();
-        addCourse(new Course("SE_3354", "Software_Engineering", "12345", 10, 30, "Dr. WEI", 0));
-        addCourse(new Course("CE_2337", "CompSci_2", "13346", 11, 0, "jason smith", 0));
+        addCourse(new Course("SE_3354", "Software_Engineering", "12345", 10, 30, "Dr. WEI", 0, ""));
+        addCourse(new Course("CE_2337", "CompSci_2", "13346", 11, 0, "jason smith", 0, ""));
     }
 
     public static CoursesDatabase getInstance(Context context){
@@ -163,7 +163,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 int minute = cursor.getInt(4);
                 String instructor = cursor.getString(5);
                 int ison = cursor.getInt(6);
-                return new Course(id, name, code, hour, minute, instructor, ison);
+                String latesttime = cursor.getString(7);
+                return new Course(id, name, code, hour, minute, instructor, ison, latesttime);
             }
         }
 
