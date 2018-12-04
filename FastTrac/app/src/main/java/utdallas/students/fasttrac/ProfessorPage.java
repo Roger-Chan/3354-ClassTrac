@@ -38,6 +38,7 @@ public class ProfessorPage extends AppCompatActivity {
         //define array values to show into list view
         //ArrayList<String> my_class_list = new ArrayList<>();
         ArrayList<String> my_class_list = new ArrayList<>(cd.getProfessorCourses(professor.getFirst_name(), professor.getLast_name()));
+        ArrayList<String> my_codes_list = new ArrayList<>(cd.getProfessorCoursesCodes(professor.getFirst_name(), professor.getLast_name()));
 
         //Define an Adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, my_class_list);
@@ -47,13 +48,50 @@ public class ProfessorPage extends AppCompatActivity {
         list.setAdapter(adapter);
 
         //testing
+        /*
         Course samplecourse = cd.findCourse("12345");
         cd.newClassTable(samplecourse);
         cd.addSession(samplecourse);
         User samplestudent = db.validCredentials("username", "password");
         samplecourse.setAvailableOn();
         cd.attendStudentInCourse(samplestudent, samplecourse);
+        */
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Course clickedcourse = cd.findCourse(my_codes_list.get(position));
 
+                if (clickedcourse.isAvailable())
+                {
+                    cd.addSession(clickedcourse);
+                    //sets availability to 0
+                    cd.toggleClass(my_codes_list.get(position), 0);
+                    Toast.makeText(ProfessorPage.this, "class is closed", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    //creates new session
+                    cd.addSession(clickedcourse);
+                    //with current time
+                    clickedcourse.setLatestTimeAuto();
+                    cd.updateTime(my_codes_list.get(position), clickedcourse.getLatestTime());
+                    //sets availability to 1
+                    cd.toggleClass(my_codes_list.get(position), 1);
+                    Course ncourse = cd.findCourse(my_codes_list.get(position));
+                    boolean ncoursec = ncourse.isAvailable();
+                    int j;
+                    if (ncoursec)
+                    {
+                        j =1;
+                    }
+                    else
+                    {
+                        j = 0;
+                    }
+                    Toast.makeText(ProfessorPage.this, "class is open" + j, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         add_course_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,8 +21,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public static final String KEY_HOUR = "COURSE_HOUR";              //column index 3
     public static final String KEY_MINUTE = "COURSE_MINUTE";          //column index 4
     public static final String KEY_INSTRUCTOR = "COURSE_INSTRUCTOR";  //column index 5
-    public static final String IS_ON = "IS_ON";                       //column index 6
-    public static final String LATEST_TIME = "LATEST_TIME";           //column index 7
+    public static final String IS_ON = "ISON";                        //column index 6
+    public static final String LATEST_TIME = "LATESTTIME";            //column index 7
 
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,9 +46,9 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 KEY_CODE        +   " TEXT NOT NULL, "  +   // column 2
                 KEY_HOUR        +   " INT, "            +   // column 3
                 KEY_MINUTE      +   " INT, "            +   // column 4
-                KEY_INSTRUCTOR  +   " TEXT,"            +   // column 5
-                IS_ON           +   "INT DEFAULT 0,"    +   // column 6
-                LATEST_TIME     +   "String);";             // column 7
+                KEY_INSTRUCTOR  +   " TEXT, "            +   // column 5
+                IS_ON           +   " INT DEFAULT 0,"    +   // column 6
+                LATEST_TIME     +   " String);";             // column 7
 
 
         cd.execSQL(SQL_CREATE_USER_TABLE);
@@ -101,7 +101,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         //otherwise, just tick their attendance on the current date
         ContentValues datevalue = new ContentValues();
         datevalue.put("'" + course.getLatestTime() + "'", 1);
-        cd.update(CLASS_TABLE_NAME, datevalue, KEY_STUDENT_FIRST_NAME+" = ? AND " + KEY_STUDENT_LAST_NAME+" = ?", new String [] {student.getFirst_name(), student.getLast_name()});
+        cd.update(CLASS_TABLE_NAME, datevalue, KEY_STUDENT_FIRST_NAME + " = ? AND " + KEY_STUDENT_LAST_NAME+" = ?", new String [] {student.getFirst_name(), student.getLast_name()});
         return true;
     }
 
@@ -143,7 +143,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
 
         // if we didn't find the course then add it and return true
         cd.insert(COURSES_TABLE_NAME, null, values);
-
+        //create new table for the course
+        newClassTable(course);
         return true;
     }
 
@@ -186,5 +187,57 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         }
 
         return names;
+    }
+
+    public boolean isOn(String code){
+        SQLiteDatabase cd = this.getWritableDatabase();
+        // search for the student and get all the codes they have
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_CODE = ?",new String[] {code});
+
+        return (cursor.getInt(6) == 1);
+    }
+    public int updateTime(String code, String time){
+        SQLiteDatabase cd = this.getWritableDatabase();
+        // search for the student and get all the codes they have
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_CODE = ?",new String[] {code});
+        if (!cursor.moveToNext())
+        {
+            return 0;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(LATEST_TIME, time);
+
+        return cd.update(COURSES_TABLE_NAME, contentValues, "COURSE_CODE = ?", new String[]{code});
+    }
+
+    public int toggleClass(String code, int available){
+        SQLiteDatabase cd = this.getWritableDatabase();
+        // search for the student and get all the codes they have
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_CODE = ?",new String[] {code});
+        if (!cursor.moveToNext())
+        {
+            return 0;
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(IS_ON, available);
+
+        return cd.update(COURSES_TABLE_NAME, contentValues, "COURSE_CODE = ?", new String[]{code});
+
+    }
+
+
+    public ArrayList<String> getProfessorCoursesCodes(String firstName, String lastName){
+        SQLiteDatabase cd = this.getWritableDatabase();
+        ArrayList<String> codes = new ArrayList<String>();
+
+        // search for the student and get all the codes they have
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[] {firstName + " " + lastName});
+
+        while(cursor.moveToNext()){
+            codes.add(cursor.getString(2));
+        }
+
+        return codes;
     }
 }

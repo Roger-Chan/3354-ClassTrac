@@ -25,7 +25,6 @@ public class TakeAttendence extends AppCompatActivity {
 
         // add a fake course for the student to test
         Course fake = cd.findCourse("13346");
-        //student.addCourse(fake);
         db.addCourse(student.getUsername(), student.getPasswrd(), fake);
 
         super.onCreate(savedInstanceState);
@@ -39,7 +38,6 @@ public class TakeAttendence extends AppCompatActivity {
 
         //defind array values to show into Listview
         ArrayList<String> my_class_list = new ArrayList<>();
-
         ArrayList<String> students_current_codes = new ArrayList<>(db.getCodes(student.getUsername(), student.getPasswrd()));
 
         // 5 is the max number of classes the student can have
