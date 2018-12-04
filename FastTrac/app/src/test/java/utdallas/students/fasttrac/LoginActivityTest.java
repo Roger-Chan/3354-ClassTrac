@@ -1,6 +1,7 @@
 package utdallas.students.fasttrac;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +16,15 @@ public class LoginActivityTest {
 
     LoginActivity uLoginAcvity;
     DatabaseHelper db;
+    SQLiteDatabase data;
 
     @Before
     public void setUp() throws Exception {
         uLoginAcvity = new LoginActivity();
         Context context = uLoginAcvity.getApplicationContext();
-        db = new DatabaseHelper(context, DatabaseHelper.class).build()
+        db = DatabaseHelper.getInstance(context);
     }
+
     @Test
     public void test(){
         db.addUser(new User("hello", "123456", "hello", "goodbye", "hello@utdallas.edu", 0));
