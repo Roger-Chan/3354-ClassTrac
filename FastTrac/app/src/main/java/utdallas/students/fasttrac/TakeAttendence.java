@@ -90,7 +90,7 @@ public class TakeAttendence extends AppCompatActivity {
                 }   else{
                     // get the code from the textview and see in it matches any in our database
                     String code = codeArea.getText().toString();
-
+                    System.out.println(code);
                     if (code.isEmpty()){
                         //tell the user that there was invalid input
                         invalid_input.setVisibility(View.VISIBLE);
@@ -126,6 +126,8 @@ public class TakeAttendence extends AppCompatActivity {
                                     invalid_input.setVisibility(View.INVISIBLE);
                                     // update the listview
                                     adapter.add(course.name);
+                                    my_class_list.add(cd.findCourse(code).getName());
+
                                 }
                             }
                         }
