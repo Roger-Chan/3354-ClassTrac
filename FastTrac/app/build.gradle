@@ -35,5 +35,7 @@ dependencies {
         // Set this dependency if you want to use the Hamcrest matcher library
         testCompile 'org.hamcrest:hamcrest-library:1.3'
         // more stuff, e.g., Mockito
+        testCompile 'androidx.test:core:1.0.0'
+
     }
 
