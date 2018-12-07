@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
     DatabaseHelper db;
+    Button bLoginbtn = null;
+    EditText user_name = null;
+    EditText pass_wrd = null;
+    TextView invalid = null;
+    TextView tvRegister = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +26,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Button bLoginbtn = (Button) findViewById(R.id.bLogin);
-        final EditText user_name = (EditText) findViewById(R.id.etUsername);
-        final EditText pass_wrd = (EditText) findViewById(R.id.etPassword);
-        final TextView invalid = (TextView) findViewById(R.id.invalid_login);
-        final TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
+        user_name = (EditText) findViewById(R.id.etUsername);
+        pass_wrd = (EditText) findViewById(R.id.etPassword);
+        invalid = (TextView) findViewById(R.id.invalid_login);
+        tvRegister = (TextView) findViewById(R.id.tvRegister);
 
         bLoginbtn.setOnClickListener(new View.OnClickListener() {
             @Override

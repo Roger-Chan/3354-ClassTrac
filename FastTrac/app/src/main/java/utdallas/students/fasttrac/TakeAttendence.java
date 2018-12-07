@@ -133,7 +133,17 @@ public class TakeAttendence extends AppCompatActivity {
 
 
                 alertDialog.show();
+
+
+
+                // get the code to pront out correctly
                 System.out.println(code[0]);
+                //
+                //
+                //
+                //
+                //
+                //
                 Course course = null;
 
                 if(course != null){
