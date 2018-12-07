@@ -1,17 +1,18 @@
 package utdallas.students.fasttrac;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Course {
+public class Course  implements Serializable {
     String id = null;
     String name = null;
     String code = null;
     int hour = 0;
     int minute = 0;
     String instructor = null;
-    boolean available = false;
+    int available = 0;
     String latest_time = null;
 
     public Course(){
@@ -22,13 +23,14 @@ public class Course {
         setInstructor(null);
     }
 
-    public Course(String id, String name, String code, int hour, int minute, String instructor){
+    public Course(String id, String name, String code, int hour, int minute, String instructor, int ison, String time){
         setId(id);
         setName(name);
         setCode(code);
         setTime(hour,minute);
         setInstructor(instructor);
-        setLatestTimeAuto();
+        setAvailable(ison);
+        setLatestTime(time);
     }
 
     public String getId(){return id;}
@@ -44,9 +46,8 @@ public class Course {
     public void setCode(String code){this.code = code;}
     public void setTime(int hour, int minute){this.hour = hour; this.minute = minute;}
     public void setInstructor(String instructor){this.instructor = instructor;}
-    public void setAvailableOn(){available = true;}
-    public void setAvailableOff(){available = false;}
-    public boolean isAvailable(){return (available);}
+    public void setAvailable(int ison){available = ison;}
+    public boolean isAvailable(){return (available == 1);}
 
     public void setLatestTime(String time){
         latest_time = time;

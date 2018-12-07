@@ -8,9 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import java.io.Serializable;
+
 
 public class StudentPage extends AppCompatActivity implements Serializable {
     DatabaseHelper db;
@@ -50,6 +49,7 @@ public class StudentPage extends AppCompatActivity implements Serializable {
         LastText.setKeyListener(null);
         EmailText.setKeyListener(null);
         PasswordText.setKeyListener(null);
+
 
         // when the attendance button is clicked
         takeAttendancebtn.setOnClickListener(new View.OnClickListener() {

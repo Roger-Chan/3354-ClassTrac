@@ -38,12 +38,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        deleteAll();
-        //students
-        addUser(new User("username","password","matthew","hicks", "mgh160030@utdallas.edu", 0));
-        addUser(new User("mgh160031", "pass", "kevin", "smith", "smith1@utdallas.edu", 0));
-        //professors
-        addUser(new User("professor1", "password", "jason", "smith", "jason.smith@utdallas.edu", 1));
     }
 
     public static DatabaseHelper getInstance(Context context){
@@ -78,6 +72,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void profDeleteCourse(String code){
+        // for all the students that have this course, delete it
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // search for the students that have this course
+        Cursor cursor = null;
+
+        for(int i = 1; i <= 5; i++){
+             cursor = db.rawQuery("select * from " + TABLE_NAME + " WHERE COURSE_" + i + "_CODE = ?", new String[] {code});
+             while(cursor.moveToNext()){
+                 db.execSQL("UPDATE " + TABLE_NAME + " SET COURSE_" + i + "_CODE=?", new String[]{"NULL"});
+             }
+        }
+
+    }
     public void addUser(User user){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -142,9 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    /*
-    will improve update function in a little
-     */
 
     public boolean addCourse(String username, String password, Course course){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -175,6 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //ContentValues contentValues = new ContentValues();
 
     }
+
 
     public ArrayList<String> getCodes(String username, String password){
         SQLiteDatabase db = this.getWritableDatabase();
