@@ -20,10 +20,10 @@ public class LoginActivity extends AppCompatActivity {
         db = DatabaseHelper.getInstance(this);
 
         Button bLoginbtn = (Button)findViewById(R.id.bLogin);
-        final EditText user_name = (EditText)findViewById(R.id.etUsername);
-        final EditText pass_wrd = (EditText)findViewById(R.id.etPassword);
         final TextView invalid = (TextView) findViewById(R.id.invalid_login);
         final TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
+        final EditText user_name = (EditText)findViewById(R.id.etUsername);
+        final EditText pass_wrd = (EditText)findViewById(R.id.etPassword);
 
         bLoginbtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,10 +1,11 @@
 package utdallas.students.fasttrac;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Course {
+public class Course  implements Serializable {
     String id = null;
     String name = null;
     String code = null;

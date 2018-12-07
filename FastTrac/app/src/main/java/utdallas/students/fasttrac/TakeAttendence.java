@@ -27,8 +27,10 @@ public class TakeAttendence extends AppCompatActivity {
 
         // add a fake course for the student to test
         Course fake = cd.findCourse("13346");
-        db.addCourse(student.getUsername(), student.getPasswrd(), fake);
 
+        if(fake != null) {
+            db.addCourse(student.getUsername(), student.getPasswrd(), fake);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_attendence);
 
@@ -45,7 +47,7 @@ public class TakeAttendence extends AppCompatActivity {
         // 5 is the max number of classes the student can have
         for(int i = 0; i < 5; i++){
             // add the courses they are already in to our arraylist
-            if(!students_current_codes.get(i).contains("NULL")) {
+            if(!students_current_codes.get(i).contains("NULL") ) {
                 // ADD TO THE LIST
                 my_class_list.add(cd.findCourse(students_current_codes.get(i)).getName());
             }

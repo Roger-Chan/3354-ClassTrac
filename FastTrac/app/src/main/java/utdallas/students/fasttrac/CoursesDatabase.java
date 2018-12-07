@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CoursesDatabase extends SQLiteOpenHelper {
     private static CoursesDatabase cd = null;
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "course_manager.db";
     public static final String COURSES_TABLE_NAME = "COURSES";
     public static final String KEY_ID = "ID";                         //column index 0
@@ -126,19 +126,11 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         values.put(KEY_INSTRUCTOR, course.getInstructor());
 
         // find all the courses the instructor is in
-        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_INSTRUCTOR = ?",new String[]{course.getInstructor()});
+        Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_CODE = ?",new String[]{course.getCode()});
 
-        // means our course is already in the database
+        // means our course code is already in the database comewhere
         while(cursor.moveToNext()){
-
-            // if the instructor already has a class with the same credintials just a different casing the dont let them add it
-            if(cursor.getString(0).equalsIgnoreCase(course.getId()) &&
-               cursor.getString(1).equalsIgnoreCase(course.getName()) &&
-               cursor.getString(2).equalsIgnoreCase(course.getCode())){
-
-                // the instructor already has this course just with different casing
-                return false;
-            }
+            return false;
         }
 
         // if we didn't find the course then add it and return true
@@ -156,7 +148,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         Cursor cursor = cd.rawQuery("select * from " + COURSES_TABLE_NAME, null);
 
         while (cursor.moveToNext()) {
-            if (cursor.getString(2).equals(code)){
+            if (cursor.getString(2).contains(code)){
                 String id = cursor.getString(0);
                 String name = cursor.getString(1);
                 int hour = cursor.getInt(3);
@@ -167,7 +159,6 @@ public class CoursesDatabase extends SQLiteOpenHelper {
                 return new Course(id, name, code, hour, minute, instructor, ison, latesttime);
             }
         }
-
         return null;
     }
 
@@ -225,6 +216,11 @@ public class CoursesDatabase extends SQLiteOpenHelper {
 
         return cd.update(COURSES_TABLE_NAME, contentValues, "COURSE_CODE = ?", new String[]{code});
 
+    }
+
+    public void deleteCourse(String code){
+        SQLiteDatabase cd = this.getWritableDatabase();
+        cd.delete(COURSES_TABLE_NAME, "COURSE_CODE = ?", new String[]{code});
     }
 
 

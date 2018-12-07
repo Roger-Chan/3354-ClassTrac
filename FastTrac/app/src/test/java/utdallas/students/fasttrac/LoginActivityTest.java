@@ -17,18 +17,17 @@ public class LoginActivityTest {
     LoginActivity uLoginAcvity;
     DatabaseHelper db;
     SQLiteDatabase data;
-
+    EditText ed;
     @Before
     public void setUp() throws Exception {
         uLoginAcvity = new LoginActivity();
-        Context context = uLoginAcvity.getApplicationContext();
-        db = DatabaseHelper.getInstance(context);
+        ed = uLoginAcvity.user_name;
     }
 
     @Test
     public void test(){
-        db.addUser(new User("hello", "123456", "hello", "goodbye", "hello@utdallas.edu", 0));
-        assertEquals(true, db.validCredentials("hello", "123456"));
+        ed.setText("username");
+        assertEquals("username", ed.getText());
     }
 }
 
