@@ -142,9 +142,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    /*
-    will improve update function in a little
-     */
 
     public boolean addCourse(String username, String password, Course course){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -175,6 +172,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //ContentValues contentValues = new ContentValues();
 
     }
+
 
     public ArrayList<String> getCodes(String username, String password){
         SQLiteDatabase db = this.getWritableDatabase();
