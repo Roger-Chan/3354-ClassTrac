@@ -24,12 +24,11 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     public static final String IS_ON = "ISON";                        //column index 6
     public static final String LATEST_TIME = "LATESTTIME";            //column index 7
 
+
     private CoursesDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        deleteAll();
-        addCourse(new Course("SE_3354", "Software_Engineering", "12345", 10, 30, "Dr. WEI", 0, ""));
-        addCourse(new Course("CE_2337", "CompSci_2", "13346", 11, 0, "jason smith", 0, ""));
     }
+
 
     public static CoursesDatabase getInstance(Context context){
         if (cd == null){
@@ -37,6 +36,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         }
         return cd;
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase cd) {
@@ -68,6 +68,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         cd.execSQL(SQL_CREATE_CLASS_TABLE);
     }
 
+
     public boolean addSession(Course course)
     {
         SQLiteDatabase cd = this.getWritableDatabase();
@@ -77,7 +78,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         return true;
     }
 
-    //****NEEDS TESTING ****
+
     //takes the attendance of a student in course table. If the student does not exist in the course table, the student is then added.
     public boolean attendStudentInCourse(User student, Course course) {
         SQLiteDatabase cd = this.getWritableDatabase();
@@ -106,12 +107,12 @@ public class CoursesDatabase extends SQLiteOpenHelper {
     }
 
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + COURSES_TABLE_NAME);
         onCreate(db);
     }
+
 
     public boolean addCourse(Course course){
         SQLiteDatabase cd = this.getWritableDatabase();
@@ -128,7 +129,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         // find all the courses the instructor is in
         Cursor cursor = cd.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE COURSE_CODE = ?",new String[]{course.getCode()});
 
-        // means our course code is already in the database comewhere
+        // means our course code is already in the database
         while(cursor.moveToNext()){
             return false;
         }
@@ -162,6 +163,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         return null;
     }
 
+
     public void deleteAll(){
         SQLiteDatabase cd = this.getWritableDatabase();
         cd.execSQL("DELETE FROM " + COURSES_TABLE_NAME);
@@ -181,6 +183,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         return names;
     }
 
+
     public boolean isOn(String code){
         SQLiteDatabase cd = this.getWritableDatabase();
         // search for the student and get all the codes they have
@@ -188,6 +191,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
 
         return (cursor.getInt(6) == 1);
     }
+
+
     public int updateTime(String code, String time){
         SQLiteDatabase cd = this.getWritableDatabase();
         // search for the student and get all the codes they have
@@ -202,6 +207,7 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         return cd.update(COURSES_TABLE_NAME, contentValues, "COURSE_CODE = ?", new String[]{code});
     }
 
+
     public int toggleClass(String code, int available){
         SQLiteDatabase cd = this.getWritableDatabase();
         // search for the student and get all the codes they have
@@ -215,8 +221,8 @@ public class CoursesDatabase extends SQLiteOpenHelper {
         contentValues.put(IS_ON, available);
 
         return cd.update(COURSES_TABLE_NAME, contentValues, "COURSE_CODE = ?", new String[]{code});
-
     }
+
 
     public void deleteCourse(String code){
         SQLiteDatabase cd = this.getWritableDatabase();
