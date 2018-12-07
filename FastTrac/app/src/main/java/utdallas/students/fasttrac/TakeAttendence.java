@@ -1,11 +1,16 @@
 package utdallas.students.fasttrac;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +40,10 @@ public class TakeAttendence extends AppCompatActivity {
         setContentView(R.layout.activity_take_attendence);
 
         Button addCoursebtn = (Button) findViewById(R.id.addCourse_btn);
+        Button deleteCourse = (Button) findViewById(R.id.delete_button);
         TextView addPrompt = (TextView) findViewById(R.id.promt_code);
-        TextView codeArea = (TextView) findViewById(R.id.code_enter);
         TextView invalid_input = (TextView) findViewById(R.id.attendence_invalid);
-
+        EditText input = new EditText(this);
 
         //define array values to show into Listview
         ArrayList<String> my_class_list = new ArrayList<>();
@@ -58,21 +63,50 @@ public class TakeAttendence extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.view2);
         list.setAdapter(adapter);
 
+        deleteCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // change the delete button to done
+                deleteCourse.setText("DONE");
+                addCoursebtn.setEnabled(false);
+            }
+        });
+
         //get courses information for the student
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Course clickedcourse = cd.findCourse(students_current_codes.get(position));
 
-                if (clickedcourse.isAvailable())
-                {
-                    cd.attendStudentInCourse(student, clickedcourse);
-                    Toast.makeText(TakeAttendence.this, "Attended " + clickedcourse.getId(), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    //updates to current time
-                    Toast.makeText(TakeAttendence.this, clickedcourse.getId() + " is not open ", Toast.LENGTH_SHORT).show();
+                if(addCoursebtn.isEnabled() == false){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(TakeAttendence.this);
+                    alertDialog.setMessage("Are you sure you wish to delete this course?");
+                    alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // delete the course from the students database
+                            db.stuDeleteCourse(student.getUsername(), student.getPasswrd(), clickedcourse.getCode());
+                            // go bake to the professor page
+                            Intent goBack = new Intent(getApplicationContext(), StudentPage.class);
+                            goBack.putExtra("Student", student);
+                            startActivity(goBack);
+                        }
+                    });
+                    alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // DO NOTHING
+                        }
+                    });
+                    alertDialog.show();
+                }   else {
+                    if (clickedcourse.isAvailable()) {
+                        cd.attendStudentInCourse(student, clickedcourse);
+                        Toast.makeText(TakeAttendence.this, "Attended " + clickedcourse.getId(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //updates to current time
+                        Toast.makeText(TakeAttendence.this, clickedcourse.getId() + " is not open ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -82,18 +116,29 @@ public class TakeAttendence extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // check to see if the prompt is already visable
-                if (codeArea.getVisibility() == View.INVISIBLE){
-                    // prompt the user to enter the class code in a textfield
-                    addPrompt.setVisibility(View.VISIBLE);
-                    codeArea.setVisibility(View.VISIBLE);
-                }   else{
-                    // get the code from the textview and see in it matches any in our database
-                    String code = codeArea.getText().toString();
-                    System.out.println(code);
-                    Course course = cd.findCourse(code);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(TakeAttendence.this);
+                alertDialog.setMessage("Enter Course Code?");
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                alertDialog.setView(input);
+                final String[] code = new String[1];
 
+                alertDialog.setPositiveButton("ENTER", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // delete the course from the students database
+                        code[0] = input.getText().toString();
+
+                    }
+                });
+
+
+                alertDialog.show();
+                System.out.println(code[0]);
+                Course course = null;
+
+                if(course != null){
                     // if we have a weird character, then don't check the database
-                    if(!IsNumOrUpper(code) || course == null){
+                    if(!IsNumOrUpper(code[0]) || course == null){
                         // clock it and then if they do it three times, report them to the system
                         invalid_input.setVisibility(View.VISIBLE);
                     }   else{
@@ -115,6 +160,7 @@ public class TakeAttendence extends AppCompatActivity {
                     }
                 }
             }
+
         });
 
 

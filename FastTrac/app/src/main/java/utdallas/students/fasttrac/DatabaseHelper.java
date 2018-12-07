@@ -93,6 +93,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
+
+    public void stuDeleteCourse(String username, String password, String code){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // search for the students that have this course
+        Cursor cursor = null;
+
+        for(int i = 1; i <= 5; i++){
+            cursor = db.rawQuery("select * from " + TABLE_NAME + " WHERE USERNAME = ? AND PASSWORD = ? AND COURSE_" + i + "_CODE = ?", new String[] {username, password, code});
+            while(cursor.moveToNext()){
+                db.execSQL("UPDATE " + TABLE_NAME + " SET COURSE_" + i + "_CODE=?", new String[]{"NULL"});
+                System.out.print("FFFFFFFFFFFFFFFFFFFFFFFF: " + cursor.getString(i+5));
+            }
+        }
+    }
+
     public void addUser(User user){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -198,6 +214,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(cursor.moveToNext()){
             for(int i = 6; i <= 10; i++){
                 if(cursor.getString(i) == "NULL"){
+                    System.out.println("UUUUUUUUUUUUUUUUUU");
                     codes.add(null);
                 }   else{
                     codes.add(cursor.getString(i));

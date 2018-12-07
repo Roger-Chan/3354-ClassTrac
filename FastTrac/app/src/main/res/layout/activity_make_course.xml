@@ -186,7 +186,7 @@
         app:layout_constraintVertical_bias="0.555" />
 
     <ImageView
-        android:id="@+id/delete_btn"
+        android:id="@+id/delete_button"
         android:layout_width="48dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"

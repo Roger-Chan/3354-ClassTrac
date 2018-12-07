@@ -37,7 +37,7 @@ public class makeCourse extends AppCompatActivity {
         // get the button and time clock objects
         Button submit_btn = (Button) findViewById(R.id.submit_btn);
         Button cancel_btn = (Button) findViewById(R.id.cancel_button);
-        ImageView delete_btn = (ImageView) findViewById(R.id.delete_btn);
+        ImageView delete_btn = (ImageView) findViewById(R.id.delete_button);
 
         TimePicker clock = (TimePicker) findViewById(R.id.time_clock);
 
