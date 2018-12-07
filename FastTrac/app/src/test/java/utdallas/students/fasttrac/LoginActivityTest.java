@@ -9,19 +9,22 @@ import android.widget.TextView;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.robolectric.internal.bytecode.InstrumentationConfiguration;
+import android.support.test.InstrumentationRegistry;
 
 import static org.junit.Assert.*;
 
 public class LoginActivityTest {
 
     LoginActivity uLoginAcvity;
+    Context context = InstrumentationRegistry.getTargetContext();
+
     DatabaseHelper db;
     SQLiteDatabase data;
     EditText ed;
     @Before
     public void setUp() throws Exception {
         uLoginAcvity = new LoginActivity();
-        ed = uLoginAcvity.user_name;
     }
 
     @Test
