@@ -56,7 +56,7 @@ public class LoginActivityTest {
     @Test
     public void validTest(){
         invalid_field.setText("Wrong Username and/or Password");
-        assertEquals("Wrong Username and/or Password",invalid_field.getText().toString();
+        assertEquals("Wrong Username and/or Password",invalid_field.getText().toString());
     }
 
     // Test the tvRegister
