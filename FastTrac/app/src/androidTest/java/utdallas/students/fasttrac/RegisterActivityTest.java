@@ -13,6 +13,7 @@ public class RegisterActivityTest {
     Context context = InstrumentationRegistry.getTargetContext();
     User addUser;
 
+
     @Before
     public void setup(){
         tester = new DatabaseHelper(context);
