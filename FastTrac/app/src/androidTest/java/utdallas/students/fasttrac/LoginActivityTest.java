@@ -4,12 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.support.test.rule.ActivityTestRule;
+import android.widget.Button;
 import android.widget.EditText;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import android.support.test.InstrumentationRegistry;
+import android.widget.TextView;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +22,9 @@ public class LoginActivityTest {
     SQLiteDatabase data;
     EditText username_field = null;
     EditText password_field = null;
-    EditText invalid_field = null;
+    TextView invalid_field = null;
+    TextView register_field = null;
+    Button login_field = null;
     @Rule
     public ActivityTestRule<LoginActivity> lActivity =
             new ActivityTestRule(LoginActivity.class);
@@ -29,7 +33,9 @@ public class LoginActivityTest {
     public void setUp() throws Exception {
         password_field = lActivity.getActivity().pass_wrd;
         username_field = lActivity.getActivity().user_name;
-        invalid_field = lActivity.getActivity().invalid;
+        invalid_field =  lActivity.getActivity().invalid;
+        register_field = lActivity.getActivity().tvRegister;
+        login_field = lActivity.getActivity().bLoginbtn;
     }
 
     // Test if User name is correct
@@ -50,8 +56,21 @@ public class LoginActivityTest {
     @Test
     public void validTest(){
         invalid_field.setText("Wrong Username and/or Password");
-        assertEquals("Wrong Username and/or Password",invalid_field.getText().toString());
+        assertEquals("Wrong Username and/or Password",invalid_field.getText().toString();
     }
 
+    // Test the tvRegister
+    @Test
+    public void registerTest(){
+        register_field.setText("Register Succesful");
+        assertEquals("Register Succesful",register_field.getText().toString());
+    }
+
+    // Testing for button
+    @Test
+    public void ButtonTest(){
+        login_field.setText("login Succesful");
+        assertEquals("login Succesful",login_field.getText().toString());
+    }
 }
 
