@@ -29,7 +29,7 @@ public class TakeAttendence extends AppCompatActivity {
 
         // get the student object
         User student = (User) getIntent().getSerializableExtra("Student");
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_attendence);
 
