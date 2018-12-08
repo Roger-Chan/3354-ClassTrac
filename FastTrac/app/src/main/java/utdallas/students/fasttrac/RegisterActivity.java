@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                String firstname = etLastname.getText().toString();
+                String firstname = etFirstname.getText().toString();
                 String lastname = etLastname.getText().toString();
                 boolean isProfessor = swVerification.isChecked();
                 Intent homeactivity;
