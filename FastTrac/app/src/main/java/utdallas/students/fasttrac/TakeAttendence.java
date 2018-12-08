@@ -41,9 +41,11 @@ public class TakeAttendence extends AppCompatActivity implements AddClassDialog.
         setContentView(R.layout.activity_take_attendence);
 
         Button addCoursebtn = (Button) findViewById(R.id.addCourse_btn);
+        Button submitCoursebtn = (Button) findViewById(R.id.submitcourse_btn);
         TextView addPrompt = (TextView) findViewById(R.id.promt_code);
         TextView invalid_input = (TextView) findViewById(R.id.attendence_invalid);
         EditText input = new EditText(this);
+
 
         //define array values to show into Listview
         ArrayList<String> my_class_list = new ArrayList<>();
@@ -85,8 +87,15 @@ public class TakeAttendence extends AppCompatActivity implements AddClassDialog.
             public void onClick(View v) {
                 // check to see if the prompt is already visable
                 openDialog();
+                Toast.makeText(TakeAttendence.this, "input " +code, Toast.LENGTH_SHORT).show();
                 course = cd.findCourse(code);
 
+            }
+
+        });
+        submitCoursebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if(course != null){
                     // if we have a weird character, then don't check the database
                     if(!IsNumOrUpper(code) || course == null){
@@ -111,7 +120,6 @@ public class TakeAttendence extends AppCompatActivity implements AddClassDialog.
                     }
                 }
             }
-
         });
     }
     public void openDialog(){

@@ -10,19 +10,18 @@
         android:id="@+id/addCourse_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="8dp"
         android:text="Add Course"
         app:layout_constraintBottom_toTopOf="@+id/attendence_invalid"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintEnd_toStartOf="@+id/submitcourse_btn"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/promt_code"
-        app:layout_constraintVertical_bias="0.913" />
+        app:layout_constraintTop_toBottomOf="@+id/promt_code" />
 
     <TextView
         android:id="@+id/promt_code"
@@ -71,5 +70,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:orientation="horizontal" />
+
+    <Button
+        android:id="@+id/submitcourse_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginBottom="8dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toTopOf="@+id/attendence_invalid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/promt_code" />
 
 </android.support.constraint.ConstraintLayout>
