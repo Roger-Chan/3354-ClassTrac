@@ -13,6 +13,14 @@ import java.io.Serializable;
 
 public class StudentPage extends AppCompatActivity implements Serializable {
     DatabaseHelper db;
+    Button takeAttendancebtn;
+    Button editInfobtn;
+    TextView UserText;
+    TextView FirstText;
+    TextView LastText;
+    TextView EmailText;
+    TextView PasswordText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,13 +31,13 @@ public class StudentPage extends AppCompatActivity implements Serializable {
         // get the info of the student who is accessing this page
         User student = (User) getIntent().getSerializableExtra("Student");
 
-        Button takeAttendancebtn = (Button) findViewById(R.id.Take_Attendence_btn);
-        Button editInfobtn = (Button) findViewById(R.id.edit_info_btn);
-        TextView UserText = (TextView) findViewById(R.id.Username_field);
-        TextView FirstText = (TextView) findViewById(R.id.First_name_field);
-        TextView LastText = (TextView) findViewById(R.id.Last_name_field);
-        TextView EmailText = (TextView) findViewById(R.id.email_field);
-        TextView PasswordText = (TextView) findViewById(R.id.password_field);
+        takeAttendancebtn = (Button) findViewById(R.id.Take_Attendence_btn);
+        editInfobtn = (Button) findViewById(R.id.edit_info_btn);
+        UserText = (TextView) findViewById(R.id.Username_field);
+        FirstText = (TextView) findViewById(R.id.First_name_field);
+        LastText = (TextView) findViewById(R.id.Last_name_field);
+        EmailText = (TextView) findViewById(R.id.email_field);
+        PasswordText = (TextView) findViewById(R.id.password_field);
 
         // set the info to the correct stuff
         UserText.setText(student.getUsername());

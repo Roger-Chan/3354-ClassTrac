@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class RegisterActivityTest {
+    /*
     private DatabaseHelper tester;
     Context context = InstrumentationRegistry.getTargetContext();
     User addUser;
@@ -24,6 +25,5 @@ public class RegisterActivityTest {
         addUser = new User();
         addUser.setUsername("name");
         assertEquals("name",addUser.getUsername());
-    }
-
+    }*/
 }
