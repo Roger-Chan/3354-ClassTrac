@@ -29,19 +29,14 @@ public class TakeAttendence extends AppCompatActivity {
 
         // get the student object
         User student = (User) getIntent().getSerializableExtra("Student");
-
-        // add a fake course for the student to test
-        Course fake = cd.findCourse("13346");
-
-        if(fake != null) {
-            db.addCourse(student.getUsername(), student.getPasswrd(), fake);
-        }
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_attendence);
 
         Button addCoursebtn = (Button) findViewById(R.id.addCourse_btn);
         Button deleteCourse = (Button) findViewById(R.id.delete_button);
         TextView addPrompt = (TextView) findViewById(R.id.promt_code);
+        TextView codeArea = (TextView) findViewById(R.id.code_enter);
         TextView invalid_input = (TextView) findViewById(R.id.attendence_invalid);
         EditText input = new EditText(this);
 
@@ -120,35 +115,27 @@ public class TakeAttendence extends AppCompatActivity {
                 alertDialog.setMessage("Enter Course Code?");
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 alertDialog.setView(input);
-                final String[] code = new String[1];
 
                 alertDialog.setPositiveButton("ENTER", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // delete the course from the students database
-                        code[0] = input.getText().toString();
-
+                        //do nothing
                     }
                 });
 
+                if (codeArea.getVisibility() == View.INVISIBLE){
+                    // prompt the user to enter the class code in a textfield
+                    addPrompt.setVisibility(View.VISIBLE);
+                    codeArea.setVisibility(View.VISIBLE);
+                }   else{
+                    // get the code from the textview and see in it matches any in our database
+                    String code = codeArea.getText().toString();
+                    System.out.println(code);
+                    Course course = cd.findCourse(code);
 
-                alertDialog.show();
-
-
-
-                // get the code to pront out correctly
-                System.out.println(code[0]);
-                //
-                //
-                //
-                //
-                //
-                //
-                Course course = null;
-
-                if(course != null){
                     // if we have a weird character, then don't check the database
-                    if(!IsNumOrUpper(code[0]) || course == null){
+                    if(!IsNumOrUpper(code) || course == null){
                         // clock it and then if they do it three times, report them to the system
                         invalid_input.setVisibility(View.VISIBLE);
                     }   else{
@@ -170,7 +157,6 @@ public class TakeAttendence extends AppCompatActivity {
                     }
                 }
             }
-
         });
 
 
