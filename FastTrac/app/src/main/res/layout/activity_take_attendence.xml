@@ -10,16 +10,6 @@
         android:id="@+id/addCourse_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="20dp"
-        android:text="Add Course"
-        app:layout_constraintBottom_toTopOf="@+id/attendence_invalid"
-        app:layout_constraintEnd_toStartOf="@+id/delete_button"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent" />
-=======
         android:layout_marginStart="72dp"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="8dp"
@@ -32,7 +22,6 @@
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/promt_code" />
->>>>>>> 3e341d386b2446edda1ad7e9cb7fb9a253c9912d
 
     <TextView
         android:id="@+id/promt_code"
@@ -107,16 +96,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-<<<<<<< HEAD
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginBottom="20dp"
-        android:text="DELETE"
-        app:layout_constraintBottom_toTopOf="@+id/attendence_invalid"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/code_enter"
-        app:layout_constraintVertical_bias="1.0" />
-=======
         android:layout_marginEnd="72dp"
         android:layout_marginRight="72dp"
         android:layout_marginBottom="8dp"
@@ -124,6 +103,5 @@
         app:layout_constraintBottom_toTopOf="@+id/attendence_invalid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/promt_code" />
->>>>>>> 3e341d386b2446edda1ad7e9cb7fb9a253c9912d
 
 </android.support.constraint.ConstraintLayout>
